@@ -1,0 +1,12 @@
+{.eslintrc to expo project
+  "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"],
+        "#/*": ["./test/*"]
+      }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
