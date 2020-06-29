@@ -1,23 +1,6 @@
-module.exports = function(api) {
+module.exports = api => {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
-    plugins: [
-      [
-        "babel-plugin-root-import",
-        {
-          paths: [
-            {
-              rootPathPrefix: "@/",
-              rootPathSuffix: "./src/"
-            }
-            // {
-            //   rootPathPrefix: "#/*",
-            //   rootPathSuffix: "./__test__/"
-            // }
-          ]
-        }
-      ]
-    ]
+    presets: ["babel-preset-expo"],
   };
 };

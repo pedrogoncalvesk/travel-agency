@@ -22,7 +22,6 @@ linters/
 
 # Idea settings
 .idea/
-.idea.config.js
 
 # repositories
 .hg
