@@ -1,30 +1,35 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import i18n from "i18n-js";
+import { StatusBar } from "expo-status-bar";
+import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import * as Icon from "@expo/vector-icons";
 
-import Locale from "./locale";
+import localeConfig from "./config/locale";
 import images from "./config/images";
+import { colors } from "./config/theme";
+import AppNavigator from "./routes";
+import RootContainer from "./styled/RootContainer";
 
 export default function App(props: AppProps): JSX.Element {
   const { skipLoadingScreen } = props;
 
-  const [locale, setLocale] = useState(Locale);
+  const [locale, setLocale] = useState(localeConfig);
+  const [isReady, setIsReady] = useState(false);
 
-  const _t = (scope, options) => i18n.t(scope, { locale, ...options });
+  const _t = (scope: any, options: any) =>
+    i18n.t(scope, { locale, ...options });
 
   const _cacheResourcesAsync = async () => {
-    const imageArr = [images.icons.logo];
+    // const imageArr = [images.icons.logo];
 
-    const cacheImages = imageArr.map(image =>
-      Asset.fromModule(image).downloadAsync()
-    );
+    // const cacheImages = imageArr.map(image =>
+    //   Asset.fromModule(image).downloadAsync(),
+    // );
 
-    return Promise.all([
-      ...cacheImages,
+    await Promise.all([
+      // ...cacheImages,
       Font.loadAsync({
         ...Icon.Ionicons.font,
         ...Icon.MaterialCommunityIcons.font,
@@ -32,23 +37,39 @@ export default function App(props: AppProps): JSX.Element {
     ]);
   };
 
+  const _handleLoadingError = (error: any) => {
+    // In this case, you might want to report the error to your error
+    // reporting service, for example Sentry
+    // eslint-disable-next-line no-console
+    console.warn(error);
+  };
+
+  const _handleFinishLoading = () => setIsReady(true);
+
+  if (!isReady && !skipLoadingScreen) {
+    return (
+      <AppLoading
+        startAsync={_cacheResourcesAsync}
+        onError={_handleLoadingError}
+        onFinish={_handleFinishLoading}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <RootContainer>
+      <StatusBar animated backgroundColor={colors.COLOR_PRIMARY} />
+      <AppNavigator
+        screenProps={{
+          t: _t,
+          setLocale,
+          locale,
+        }}
+      />
+    </RootContainer>
   );
 }
 
 interface AppProps {
   skipLoadingScreen: boolean;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
