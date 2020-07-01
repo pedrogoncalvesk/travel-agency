@@ -14,13 +14,19 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "src/assets/**/*"
+      //      "src/assets/**/*"
+      "**/*"
     ],
     "ios": {
       "supportsTablet": true
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ]
   }
 }
