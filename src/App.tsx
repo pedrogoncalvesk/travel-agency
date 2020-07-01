@@ -22,14 +22,14 @@ export default function App(props: AppProps): JSX.Element {
     i18n.t(scope, { locale, ...options });
 
   const _cacheResourcesAsync = async () => {
-    // const imageArr = [images.icons.logo];
+    const imageArr = [images.icons.logo];
 
-    // const cacheImages = imageArr.map(image =>
-    //   Asset.fromModule(image).downloadAsync(),
-    // );
+    const cacheImages = imageArr.map(image =>
+      Asset.fromModule(image).downloadAsync(),
+    );
 
     await Promise.all([
-      // ...cacheImages,
+      ...cacheImages,
       Font.loadAsync({
         ...Icon.Ionicons.font,
         ...Icon.MaterialCommunityIcons.font,
