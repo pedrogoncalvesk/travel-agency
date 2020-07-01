@@ -1,11 +1,11 @@
-import StorageDriver from "./StorageDriver";
+import { StorageDriver } from "./StorageDriver";
 
 const get = (key: string, parse: boolean = true) => {
   return async () => {
     let item = null;
     try {
       item = await StorageDriver.getItem(key);
-      if (parse) {
+      if (parse && item !== null) {
         item = JSON.parse(item);
       }
     } catch (e) {
