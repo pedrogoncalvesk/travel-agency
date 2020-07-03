@@ -10,6 +10,7 @@ import MenuIcon from "./helpers/MenuIcon";
 import navigationOptions from "./helpers/navigationOptions";
 
 import Home from "./screens/Home";
+import About from "./screens/About";
 
 const headerTitleApp = "Decolar";
 
@@ -17,7 +18,7 @@ export default createStackNavigator(
   {
     [constants.ROUTES.HOME_STACK]: {
       screen: createDrawerNavigator(
-        { [constants.ROUTES.HOME]: Home },
+        { [constants.ROUTES.HOME]: Home, [constants.ROUTES.ABOUT]: About },
         {
           initialRouteName: constants.ROUTES.HOME,
           // contentComponent: Sidebar,
@@ -42,8 +43,8 @@ export default createStackNavigator(
       headerTitleAlign: "center",
       headerBackTitleVisible: true,
       headerLeft: () => <MenuIcon navigation={navigation} />,
-      headerStyle: { backgroundColor: colors.COLOR_PRIMARY },
-      headerTintColor: colors.COLOR_BACKGROUND,
+      headerStyle: { backgroundColor: colors.COLOR_BACKGROUND },
+      headerTintColor: colors.COLOR_PRIMARY,
       headerTitleStyle: { fontWeight: "bold" },
     }),
   },

@@ -53,7 +53,7 @@ export default function MenuIcon({ navigation }) {
         });
       }}
     >
-      <Icon iconName="menu" color={colors.COLOR_WHITE} size={20} />
+      <Icon iconName="menu" color={colors.COLOR_PRIMARY} size={20} />
     </TopBarButton>
   );
 }

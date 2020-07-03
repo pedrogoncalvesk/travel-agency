@@ -25,6 +25,7 @@ export default {
       VERIFICATION: "Verification",
     },
     HOME: "Home",
+    ABOUT: "About",
     HOME_STACK: "HomeStack",
     PHOTO: "Photo",
     PHOTO_ROUTES: {
