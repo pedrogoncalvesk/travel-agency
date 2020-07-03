@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { GlobalContext } from "../../../config/sharedState";
 import { Text, TextInput, Button, ButtonText } from "./styled";
 
-export default function Home() {
+export default function Tickets() {
   const [globalState] = useContext(GlobalContext)();
   const [flightFrom, setFlightFrom] = useState("São Paulo");
   const [flightTo, setFlightTo] = useState("Belo Horizonte");
