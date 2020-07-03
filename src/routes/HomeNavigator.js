@@ -1,26 +1,26 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation-stack";
-import { createDrawerNavigator } from "react-navigation-drawer";
+// import { createStackNavigator } from "react-navigation-stack";
+// import { createDrawerNavigator } from "react-navigation-drawer";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 
 import constants from "../config/constants";
 import { colors } from "../config/theme";
 
-import MenuIcon from "./helpers/MenuIcon";
+// import MenuIcon from "./helpers/MenuIcon";
 // import Sidebar from "./helpers/Sidebar";
-import navigationOptions from "./helpers/navigationOptions";
+// import navigationOptions from "./helpers/navigationOptions";
 
 import Tickets from "./screens/Tickets";
-import About from "./screens/About";
+import Discover from "./screens/Discover";
 import Icon from "../styled/Icon";
 
-const headerTitleApp = "Decolar";
+// const headerTitleApp = "Decolar";
 
 // createStackNavigator(
 //   {
 //     [constants.ROUTES.HOME_STACK]: {
 //       screen: createDrawerNavigator(
-//         { [constants.ROUTES.HOME]: Home, [constants.ROUTES.ABOUT]: About },
+//         { [constants.ROUTES.HOME]: Home, [constants.ROUTES.ABOUT]: Discover },
 //         {
 //           initialRouteName: constants.ROUTES.HOME,
 //           // contentComponent: Sidebar,
@@ -61,7 +61,13 @@ export default createMaterialTopTabNavigator(
         tabBarIcon: <Icon iconName="airplane" />,
       },
     },
-    [constants.ROUTES.ABOUT]: About,
+    [constants.ROUTES.ABOUT]: {
+      screen: Discover,
+      navigationOptions: {
+        title: "Descubra",
+        tabBarIcon: <Icon iconName="compass" />,
+      },
+    },
   },
   {
     initialRouteName: constants.ROUTES.HOME,
