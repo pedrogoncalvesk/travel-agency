@@ -5,7 +5,7 @@ import { GlobalContext } from "../../../config/sharedState";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { withTheme } from "styled-components";
 
-export default function Home() {
+export default function About() {
   const [globalState] = useContext(GlobalContext)();
   const [infoAbout, setInfoAbout] = useState('Lugar');
 
@@ -28,18 +28,18 @@ export default function Home() {
           borderRadius:20,
         }}
       >
-        <View 
+        <View
         style={{
           margin:20
         }}>
           <Text style={styles.texto}>Sobre onde deseja conhecer mais?</Text>
-      
+
           <Text style={styles.texto}>Local</Text>
-          <TextInput 
+          <TextInput
           style={[styles.input, {justifyContent: "flex-start"}]}
           placeholder='ex: São Paulo'
           onChangeText={(val) => setInfoAbout(val)}/>
-        
+
           <View>
             <TouchableOpacity style={styles.saveButton}
               onPress={() => handleButtonInformations()}>
