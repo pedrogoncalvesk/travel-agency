@@ -7,16 +7,13 @@ import { withTheme } from "styled-components";
 
 export default function Home() {
   const [globalState] = useContext(GlobalContext)();
-  const [flightFrom, setFlightFrom] = useState('São Paulo');
-  const [flightTo, setFlightTo] = useState('Belo Horizonte');
-  const [dateBegin, setDateBegin] = useState('06/07/2020');
-  const [dateEnd, setDateEnd] = useState('18/07/2020');
+  const [infoAbout, setInfoAbout] = useState('Lugar');
 
   useEffect(() => {
     console.log(globalState);
   }, [globalState]);
 
-  function handleButtonSearch() {
+  function handleButtonInformations() {
     alert('Enviar os valores para a API e atualizar a pagina');
   }
 
@@ -35,39 +32,21 @@ export default function Home() {
         style={{
           margin:20
         }}>
-          <Text style={styles.texto}>Insira as informações de sua viagem</Text>
+          <Text style={styles.texto}>Sobre onde deseja conhecer mais?</Text>
       
-          <Text style={styles.texto}>Origem:</Text>
+          <Text style={styles.texto}>Local</Text>
           <TextInput 
           style={[styles.input, {justifyContent: "flex-start"}]}
           placeholder='ex: São Paulo'
-          onChangeText={(val) => setFlightFrom(val)}/>
-        
-          <Text style={styles.texto}>Destino:</Text>
-          <TextInput 
-          style={styles.input}
-          placeholder='ex: Belo Horizonte'
-          onChangeText={(val) => setFlightTo(val)}/>
-
-          <Text style={styles.texto}> Data da ida:</Text>
-          <TextInput 
-          style={styles.input}
-          placeholder='ex: 20/07/2020'
-          onChangeText={(val) => setDateBegin(val)}/>
-          
-          <Text style={styles.texto}>Data da volta:</Text>
-          <TextInput 
-          style={styles.input}
-          placeholder='ex: 30/07/2020'
-          onChangeText={(val) => setDateEnd(val)}/>
+          onChangeText={(val) => setInfoAbout(val)}/>
         
           <View>
-            <TouchableOpacity style={styles.searchButton}
-              onPress={() => handleButtonSearch()}>
-              <Text style={styles.searchButtonText}>Buscar</Text>
+            <TouchableOpacity style={styles.saveButton}
+              onPress={() => handleButtonInformations()}>
+              <Text style={styles.saveButtonText}>Buscar</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.texto}>TESTE - Origem: {flightFrom} e Destino: {flightTo}. Horário ida: {dateBegin} e Horário volta: {dateEnd}</Text>
+          <Text style={styles.texto}>TESTE - Informações de: {infoAbout}</Text>
         </View>
       </View>
     </View>
@@ -88,7 +67,7 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 200,
   },
-  searchButton: {
+  saveButton: {
     borderWidth: 1,
     borderColor: '#007BFF',
     backgroundColor: '#007BFF',
@@ -97,7 +76,7 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 3,
   },
-  searchButtonText: {
+  saveButtonText: {
     color: '#FFFFFF',
     fontSize: 20,
     textAlign: 'center'
