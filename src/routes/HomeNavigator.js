@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "react-native";
+import { View, Image, ImageBackground } from "react-native";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 
 import { createStackNavigator } from "react-navigation-stack";
@@ -44,6 +44,7 @@ export default createStackNavigator(
             tabStyle: {
               backgroundColor: colors.COLOR_BACKGROUND,
             },
+            pressColor: colors.COLOR_PURPLE,
             activeTintColor: colors.COLOR_PRIMARY,
             inactiveTintColor: colors.COLOR_GRAY_BLACK,
             showIcon: true,
@@ -62,8 +63,10 @@ export default createStackNavigator(
         <Image
           style={{ width: 112, height: 24 }}
           source={images.icons.logoHeader}
+          resizeMode="contain"
         />
       ),
+      headerTitleAlign: "left",
       headerStyle: {
         backgroundColor: colors.COLOR_BACKGROUND,
         height: 40,

@@ -10,7 +10,7 @@ import localeConfig from "./config/locale";
 import images from "./config/images";
 import { colors } from "./config/theme";
 import AppNavigator from "./routes";
-import RootContainer from "./styled/RootContainer";
+import RootSafeContainer from "./styled/RootSafeContainer";
 
 export default function App(props: AppProps): JSX.Element {
   const { skipLoadingScreen } = props;
@@ -57,7 +57,7 @@ export default function App(props: AppProps): JSX.Element {
   }
 
   return (
-    <RootContainer>
+    <RootSafeContainer>
       <StatusBar animated backgroundColor={colors.COLOR_BACKGROUND} />
       <AppNavigator
         screenProps={{
@@ -66,7 +66,7 @@ export default function App(props: AppProps): JSX.Element {
           locale,
         }}
       />
-    </RootContainer>
+    </RootSafeContainer>
   );
 }
 
