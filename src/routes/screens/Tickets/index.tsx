@@ -40,6 +40,7 @@ const Tickets = (props: DefaultProps) => {
 
           <Text>{t("Tickets-From")}</Text>
           <Input
+            containerStyle={{ paddingHorizontal: 0 }}
             placeholderTextColor={colors.COLOR_GRAY}
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             placeholder={t("Tickets-From-Placeholder")}
@@ -47,6 +48,7 @@ const Tickets = (props: DefaultProps) => {
           />
           <Text>{t("Tickets-To")}</Text>
           <Input
+            containerStyle={{ paddingHorizontal: 0 }}
             placeholderTextColor={colors.COLOR_GRAY}
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             placeholder={t("Tickets-To-Placeholder")}
@@ -54,6 +56,7 @@ const Tickets = (props: DefaultProps) => {
           />
           <Text>{t("Tickets-StartDate")}</Text>
           <Input
+            containerStyle={{ paddingHorizontal: 0 }}
             placeholderTextColor={colors.COLOR_GRAY}
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             leftIcon={<Icon iconName="calendar" size={24} color="white" />}
@@ -62,6 +65,7 @@ const Tickets = (props: DefaultProps) => {
           />
           <Text>{t("Tickets-EndDate")}</Text>
           <Input
+            containerStyle={{ paddingHorizontal: 0 }}
             placeholderTextColor={colors.COLOR_GRAY}
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             leftIcon={<Icon iconName="calendar" size={24} color="white" />}
