@@ -54,7 +54,12 @@ export default function App(props: AppProps): JSX.Element {
     });
 
   const _cacheResourcesAsync = async () => {
-    const imageArr = [images.icons.logo, images.icons.logoHeader];
+    const imageArr = [
+      images.icons.logo,
+      images.icons.logoHeader,
+      images.flags.br,
+      images.flags.us,
+    ];
 
     const cacheImages = imageArr.map(image =>
       Asset.fromModule(image).downloadAsync(),
