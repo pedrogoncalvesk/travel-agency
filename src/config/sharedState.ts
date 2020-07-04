@@ -9,6 +9,7 @@ const useGlobalState = stateManager(
     isLoading: false,
     loadingMessage: "",
     storageMetadata: {},
+    flights: [],
   },
   {
     local: `${constants.STORAGE_PREFIX_KEY}root`,

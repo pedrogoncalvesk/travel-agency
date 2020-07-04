@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Image, TouchableOpacity, Platform } from "react-native";
 
 // eslint-disable-next-line no-unused-vars,import/named
 import { ScreenProps } from "../../App";
+import { GlobalContext } from "../../config/sharedState";
 import { colors } from "../../config/theme";
 import Flags from "../../utils/Flags";
 import SelectPicker from "../../components/SelectPicker";
 import Icon from "../../styled/Icon";
 import isObject from "../../utils/object/isObject";
+import navigationService from "../../utils/navigationService";
+import constants from "../../config/constants";
 
-const MenuRight = (props: ScreenProps) => {
-  const { getCountries, getCountry, t, setLocale, locale } = props;
+const MenuRight = (props: MenuRightProps) => {
+  const { getCountries, getCountry, t, setLocale, locale, tintColor } = props;
+  const [globalState] = useContext(GlobalContext)();
   const [countries] = useState(
     getCountries().map((c, i) => ({ ...c, id: `${i}` })),
   );
@@ -67,29 +71,54 @@ const MenuRight = (props: ScreenProps) => {
 
   return (
     <>
-      <TouchableOpacity
+      <View
         style={{
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "row",
-          paddingHorizontal: 10,
         }}
-        onPress={() => setIsVisible(true)}
       >
-        <Image
-          style={{
-            width: 30,
-            height: 20,
-            marginRight: 5,
-          }}
-          source={Flags.get(getCountry(locale).iso2)}
-          resizeMode="contain"
+        <Icon
+          iconName="basket"
+          color={
+            globalState.flights.length ? tintColor : colors.COLOR_GRAY_BLACK
+          }
+          // onPress={() =>
+          //   globalState.flights.length
+          //     ? navigationService.navigate(constants.ROUTES.CHECKOUT)
+          //     : {}
+          // }
+          onPress={() => navigationService.navigate(constants.ROUTES.CHECKOUT)}
+          style={{ marginRight: 5 }}
         />
-        <Icon iconName="arrow-dropdown" color={colors.COLOR_GRAY_BLACK} />
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            paddingHorizontal: 10,
+          }}
+          onPress={() => setIsVisible(true)}
+        >
+          <Image
+            style={{
+              width: 30,
+              height: 20,
+              marginRight: 5,
+            }}
+            source={Flags.get(getCountry(locale).iso2)}
+            resizeMode="contain"
+          />
+          <Icon iconName="arrow-dropdown" color={colors.COLOR_GRAY_BLACK} />
+        </TouchableOpacity>
+      </View>
       {renderModal()}
     </>
   );
 };
+
+interface MenuRightProps extends ScreenProps {
+  tintColor: string;
+}
 
 export default MenuRight;

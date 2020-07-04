@@ -21,10 +21,8 @@ export default {
     HOME: "Home",
     HOME_STACK: "HomeStack",
     TICKETS: "Tickets",
+    CHECKOUT: "Checkout",
     DISCOVER: "Discover",
-  },
-  ENTITY: {
-    PICTURES: "pictures",
   },
   // URLS
   // base url to api requests

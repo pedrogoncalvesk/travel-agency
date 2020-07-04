@@ -17,7 +17,7 @@ const getRouteKey = (routeName: string) => {
   return _routeMap[routeName];
 };
 
-const navigate = (routeName: string, params: any) => {
+const navigate = (routeName: string, params?: any) => {
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,

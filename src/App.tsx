@@ -21,8 +21,8 @@ export default function App(props: AppProps): JSX.Element {
   const [locale, setLocale] = useState(localeConfig);
   const [isReady, setIsReady] = useState(false);
 
-  const _t = (scope: string | string[], options: object = {}): string =>
-    i18n.t(scope, { locale, ...options });
+  const _t = (scope: string | string[], options?: object): string =>
+    i18n.t(scope, { locale, ...(isObject(options) ? options : {}) });
 
   const _getCountries = (): Array<CountryType> => {
     const allCountries = Country.getAll();
@@ -118,7 +118,7 @@ export interface ScreenProps {
 
   getCountry(l: string): CountryType;
 
-  t(scope: string | string[]): string;
+  t(scope: string | string[], options?: object): string;
 
   setLocale(l: string): any;
 

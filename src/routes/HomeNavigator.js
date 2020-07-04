@@ -10,6 +10,7 @@ import MenuRight from "./helpers/MenuRight";
 import Icon from "../styled/Icon";
 
 import Tickets from "./screens/Tickets";
+import Checkout from "./screens/Checkout";
 import Discover from "./screens/Discover";
 
 export default createStackNavigator(
@@ -55,6 +56,9 @@ export default createStackNavigator(
         },
       ),
     },
+    [constants.ROUTES.CHECKOUT]: {
+      screen: Checkout,
+    },
   },
   {
     initialRouteName: constants.ROUTES.HOME_STACK,
@@ -74,7 +78,9 @@ export default createStackNavigator(
         borderBottomWidth: 0,
       },
       headerTintColor: colors.COLOR_PRIMARY,
-      headerRight: () => <MenuRight {...screenProps} />,
+      headerRight: ({ tintColor }) => (
+        <MenuRight {...screenProps} tintColor={tintColor} />
+      ),
     }),
   },
 );

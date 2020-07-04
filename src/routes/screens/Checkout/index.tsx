@@ -7,7 +7,7 @@ import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
-import { Text, Button, ButtonText } from "./styled";
+import { Text, Button, ButtonText } from "../Tickets/styled";
 
 export default function Tickets() {
   const [globalState] = useContext(GlobalContext)();
@@ -29,7 +29,7 @@ export default function Tickets() {
       <ContainerPurple>
         <ContainerPrimary>
           <Text>Informações sobre sua passagem</Text>
-          
+
           <Text>Informações do seu cartão de crédito</Text>
           <Text>Nome no cartão</Text>
           <Input

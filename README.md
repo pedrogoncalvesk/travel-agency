@@ -35,7 +35,7 @@ Contains all the components that can be used throughout the project. These compo
 
 #### [Config](#config)
 
-Within this folder there are important files for configuring the project. The `constants.js` file will define routes names, general react-native-maps settings, endpoints for the API, etc.
+Within this folder there are important files for configuring the project. The `constants.ts` file will define routes names, general react-native-maps settings, endpoints for the API, etc.
 The files `images.js`, `locale.ts` and `theme.js` have the responsibility of defining some settings for injecting static files into the project and generally refer to the assets folder.
 
 #### [Locale](#locale)
