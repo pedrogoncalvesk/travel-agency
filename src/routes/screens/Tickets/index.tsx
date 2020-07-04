@@ -75,7 +75,7 @@ const Tickets = (props: DefaultProps) => {
       // });
 
       const p = await fetch(
-        "http://localhost:9091/listPlaces",
+        "http://producer-api.herokuapp.com/listPlaces",
         // {
         //   url: "http://localhost:9091/listPlaces",
         //   // bodyUsed: true,
@@ -97,7 +97,7 @@ const Tickets = (props: DefaultProps) => {
         // },
         {
           method: "POST",
-          keepalive: true,
+          // keepalive: true,
           // mode: "no-cors",
           // mode: "navigate",
           headers: { "Content-Type": "application/json" },
