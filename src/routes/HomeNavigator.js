@@ -1,12 +1,16 @@
-import React from "react";
-import { View, Image, ImageBackground } from "react-native";
+import React, { useState } from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
-
 import { createStackNavigator } from "react-navigation-stack";
+
 import constants from "../config/constants";
 import { colors } from "../config/theme";
 import images from "../config/images";
+import MenuRight from "./helpers/MenuRight";
+import Flags from "../utils/Flags";
 import Icon from "../styled/Icon";
+import RootContainer from "../styled/RootContainer";
+import SelectPicker from "../components/SelectPicker";
 
 import Tickets from "./screens/Tickets";
 import Discover from "./screens/Discover";
@@ -58,7 +62,7 @@ export default createStackNavigator(
   {
     initialRouteName: constants.ROUTES.HOME_STACK,
     keyboardHandlingEnabled: true,
-    defaultNavigationOptions: {
+    defaultNavigationOptions: ({ screenProps }) => ({
       headerTitle: () => (
         <Image
           style={{ width: 112, height: 24 }}
@@ -73,6 +77,7 @@ export default createStackNavigator(
         borderBottomWidth: 0,
       },
       headerTintColor: colors.COLOR_PRIMARY,
-    },
+      headerRight: () => <MenuRight {...screenProps} />,
+    }),
   },
 );

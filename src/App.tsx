@@ -11,6 +11,9 @@ import images from "./config/images";
 import { colors } from "./config/theme";
 import AppNavigator from "./routes";
 import RootSafeContainer from "./styled/RootSafeContainer";
+import isObject from "./utils/object/isObject";
+// eslint-disable-next-line no-unused-vars
+import { Country, CountryType } from "./utils/Country";
 
 export default function App(props: AppProps): JSX.Element {
   const { skipLoadingScreen } = props;
@@ -18,8 +21,37 @@ export default function App(props: AppProps): JSX.Element {
   const [locale, setLocale] = useState(localeConfig);
   const [isReady, setIsReady] = useState(false);
 
-  const _t = (scope: any, options: any) =>
+  const _t = (scope: string | string[], options: any): string =>
     i18n.t(scope, { locale, ...options });
+
+  const _getCountries = (): Array<CountryType> => {
+    const allCountries = Country.getAll();
+    return Object.keys(i18n.translations).reduce(
+      (acc: Array<CountryType>, l: string) => {
+        const country = allCountries.find((c: CountryType) => {
+          if (
+            Array.isArray(c.locales) &&
+            c.locales.findIndex((lo: string) => lo === l) !== -1
+          )
+            return c;
+          return undefined;
+        });
+        if (isObject(country)) {
+          return [...acc, country];
+        }
+        return acc;
+      },
+      [],
+    );
+  };
+
+  const _getCountry = (l: string): CountryType | undefined =>
+    _getCountries().find(({ locales }) => {
+      if (Array.isArray(locales)) {
+        return locales.find(lo => lo === l);
+      }
+      return undefined;
+    });
 
   const _cacheResourcesAsync = async () => {
     const imageArr = [images.icons.logo, images.icons.logoHeader];
@@ -62,6 +94,8 @@ export default function App(props: AppProps): JSX.Element {
       <AppNavigator
         screenProps={{
           t: _t,
+          getCountries: _getCountries,
+          getCountry: _getCountry,
           setLocale,
           locale,
         }}
