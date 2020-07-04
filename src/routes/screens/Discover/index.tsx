@@ -5,9 +5,10 @@ import { Input } from "react-native-elements";
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
 import { GlobalContext } from "../../../config/sharedState";
+import { colors } from "../../../config/theme";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
-import { Text, Button } from "../Tickets/styled";
+import { Text, Button, ButtonText } from "../Tickets/styled";
 
 const Discover = (props: DefaultProps) => {
   const {
@@ -44,11 +45,14 @@ const Discover = (props: DefaultProps) => {
           <Input
             placeholder={t("Discover-Placeholder")}
             onChangeText={val => setInfoAbout(val)}
+            containerStyle={{ paddingHorizontal: 0 }}
+            placeholderTextColor={colors.COLOR_GRAY}
+            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
           />
 
           <View>
             <Button onPress={() => handleButtonInformations()}>
-              <Text>{t("Discover-Search")}</Text>
+              <ButtonText>{t("Discover-Search")}</ButtonText>
             </Button>
           </View>
           {showInfo ? (
