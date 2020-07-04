@@ -15,6 +15,7 @@ export default function Tickets() {
   const [cardNumber, setCardNumber] = useState("1234 5678 9876 5432");
   const [cvv, setCvv] = useState("123");
   const [expireDate, setExpireDate] = useState("01/20");
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
 
   useEffect(() => {
     console.log(globalState);
@@ -28,36 +29,46 @@ export default function Tickets() {
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
         <ContainerPrimary>
-          <Text>Informações sobre sua passagem</Text>
+          <Text style={{
+            fontSize: 18,
+            textAllign: "center",
+          }}
+          >Informações sobre sua passagem</Text>
 
-          <Text>Informações do seu cartão de crédito</Text>
-          <Text>Nome no cartão</Text>
-          <Input
-            style={{ justifyContent: "flex-start" }}
-            placeholder="Joao da Silva"
-            onChangeText={val => setName(val)}
-          />
-          <Text>Número do cartão</Text>
-          <Input
-            placeholder="1234 5678 9876 5432"
-            onChangeText={val => setCardNumber(val)}
-          />
-          <Text>CVV</Text>
-          <Input
-            placeholder="123"
-            onChangeText={val => setCvv(val)}
-          />
-          <Text>Data de validade</Text>
-          <Input
-            placeholder="01/20"
-            onChangeText={val => setExpireDate(val)}
-          />
+          {isCartEmpty ? (
+            <Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>
+              O seu carrinho está vazio
+            </Text>
+          ) : [<Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>Informações do seu cartão de crédito</Text>,
+            <Text>Nome no cartão</Text>,
+            <Input
+              style={{ justifyContent: "flex-start" }}
+              placeholder="Joao da Silva"
+              onChangeText={val => setName(val)}
+            />,
+            <Text>Número do cartão</Text>,
+            <Input
+              placeholder="1234 5678 9876 5432"
+              onChangeText={val => setCardNumber(val)}
+            />,
+            <Text>CVV</Text>,
+            <Input
+              placeholder="123"
+              onChangeText={val => setCvv(val)}
+            />,
+            <Text>Data de validade</Text>,
+            <Input
+              placeholder="01/20"
+              onChangeText={val => setExpireDate(val)}
+            />,
+  
+            <View>
+              <Button onPress={() => handleButtonBuy()}>
+                <ButtonText>Comprar</ButtonText>
+              </Button>
+            </View>]}
 
-          <View>
-            <Button onPress={() => handleButtonBuy()}>
-              <ButtonText>Comprar</ButtonText>
-            </Button>
-          </View>
+
           <Text>
             TESTE - Origem: {name} e Destino: {cardNumber}. Horário ida:{" "}
             {cvv} e Horário volta: {expireDate}
