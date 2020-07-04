@@ -22,7 +22,7 @@ export default function App(props: AppProps): JSX.Element {
     i18n.t(scope, { locale, ...options });
 
   const _cacheResourcesAsync = async () => {
-    const imageArr = [images.icons.logo];
+    const imageArr = [images.icons.logo, images.icons.logoHeader];
 
     const cacheImages = imageArr.map(image =>
       Asset.fromModule(image).downloadAsync(),
@@ -58,7 +58,7 @@ export default function App(props: AppProps): JSX.Element {
 
   return (
     <RootContainer>
-      <StatusBar animated backgroundColor={colors.COLOR_PRIMARY} />
+      <StatusBar animated backgroundColor={colors.COLOR_BACKGROUND} />
       <AppNavigator
         screenProps={{
           t: _t,

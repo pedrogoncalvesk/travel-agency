@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 
 import { GlobalContext } from "../../../config/sharedState";
+import ContainerPurple from "../../../styled/ContainerPurple";
+import ContainerPrimary from "../../../styled/ContainerPrimary";
 import { Text, TextInput, Button, ButtonText } from "./styled";
 
 export default function Tickets() {
@@ -20,59 +22,46 @@ export default function Tickets() {
   };
 
   return (
-    <View style={{ backgroundColor: "#efeff4" }}>
-      <View
-        style={{
-          backgroundColor: "#8b008b",
-          width: "auto",
-          height: "auto",
-          margin: 30,
-          borderRadius: 20,
-        }}
-      >
-        <View
-          style={{
-            margin: 20,
-          }}
-        >
-          <Text>Insira as informações de sua viagem</Text>
+    <ContainerPurple>
+      <ContainerPrimary>
 
-          <Text>Origem:</Text>
-          <TextInput
-            style={{ justifyContent: "flex-start" }}
-            placeholder="ex: São Paulo"
-            onChangeText={val => setFlightFrom(val)}
-          />
+        <Text>Insira as informações de sua viagem</Text>
 
-          <Text>Destino:</Text>
-          <TextInput
-            placeholder="ex: Belo Horizonte"
-            onChangeText={val => setFlightTo(val)}
-          />
+        <Text>Origem:</Text>
+        <TextInput
+          style={{ justifyContent: "flex-start" }}
+          placeholder="ex: São Paulo"
+          onChangeText={val => setFlightFrom(val)}
+        />
 
-          <Text> Data da ida:</Text>
-          <TextInput
-            placeholder="ex: 20/07/2020"
-            onChangeText={val => setDateBegin(val)}
-          />
+        <Text>Destino:</Text>
+        <TextInput
+          placeholder="ex: Belo Horizonte"
+          onChangeText={val => setFlightTo(val)}
+        />
 
-          <Text>Data da volta:</Text>
-          <TextInput
-            placeholder="ex: 30/07/2020"
-            onChangeText={val => setDateEnd(val)}
-          />
+        <Text> Data da ida:</Text>
+        <TextInput
+          placeholder="ex: 20/07/2020"
+          onChangeText={val => setDateBegin(val)}
+        />
 
-          <View>
-            <Button onPress={() => handleButtonSearch()}>
-              <ButtonText>Procurar</ButtonText>
-            </Button>
-          </View>
-          <Text>
-            TESTE - Origem: {flightFrom} e Destino: {flightTo}. Horário ida:{" "}
-            {dateBegin} e Horário volta: {dateEnd}
-          </Text>
+        <Text>Data da volta:</Text>
+        <TextInput
+          placeholder="ex: 30/07/2020"
+          onChangeText={val => setDateEnd(val)}
+        />
+
+        <View>
+          <Button onPress={() => handleButtonSearch()}>
+            <ButtonText>Procurar</ButtonText>
+          </Button>
         </View>
-      </View>
-    </View>
+        <Text>
+          TESTE - Origem: {flightFrom} e Destino: {flightTo}. Horário ida:{" "}
+          {dateBegin} e Horário volta: {dateEnd}
+        </Text>
+      </ContainerPrimary>
+    </ContainerPurple>
   );
 }

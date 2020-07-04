@@ -18,25 +18,10 @@ export default {
     AUTH: "Auth",
     LOGOUT: "Logout",
     LOGIN: "Login",
-    REGISTER: "Register",
-    REGISTER_ROUTES: {
-      INVITE: "Invite",
-      FORM: "Form",
-      VERIFICATION: "Verification",
-    },
     HOME: "Home",
-    ABOUT: "Discover",
     HOME_STACK: "HomeStack",
-    PHOTO: "Photo",
-    PHOTO_ROUTES: {
-      MAP: "PhotoMap",
-      CAMERA: "PhotoCamera",
-      GALLERY: "PhotoGallery",
-    },
-    MONITORING: "Monitoring",
-    MONITORING_ROUTES: {
-      MAP: "MonitoringMap",
-    },
+    TICKETS: "Tickets",
+    DISCOVER: "Discover",
   },
   ENTITY: {
     PICTURES: "pictures",

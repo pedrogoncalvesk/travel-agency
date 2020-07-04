@@ -4,7 +4,7 @@
  */
 import { Dimensions } from "react-native";
 
-const tintColor = "#00358d";
+const tintColor = "#2c2c70";
 const darkGrayColor = "#7a7a7a";
 const grayColor = "#ccc";
 const lightGrayColor = "#eee";
@@ -23,6 +23,8 @@ const colors = {
   COLOR_GRAY_BLACK: darkGrayColor,
   COLOR_SUCCESS: "#4CAF50",
   COLOR_GREEN: "#77ec80",
+  COLOR_PURPLE: "#ddd5f6",
+  COLOR_RED: "#f34e3e",
   COLOR_WARNING: "#d6b106",
   COLOR_YELLOW: "#f3cf26",
   COLOR_ERROR: "#F44336",

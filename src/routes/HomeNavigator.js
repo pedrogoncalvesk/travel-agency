@@ -1,85 +1,75 @@
 import React from "react";
-// import { createStackNavigator } from "react-navigation-stack";
-// import { createDrawerNavigator } from "react-navigation-drawer";
+import { Image } from "react-native";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 
+import { createStackNavigator } from "react-navigation-stack";
 import constants from "../config/constants";
 import { colors } from "../config/theme";
-
-// import MenuIcon from "./helpers/MenuIcon";
-// import Sidebar from "./helpers/Sidebar";
-// import navigationOptions from "./helpers/navigationOptions";
+import images from "../config/images";
+import Icon from "../styled/Icon";
 
 import Tickets from "./screens/Tickets";
 import Discover from "./screens/Discover";
-import Icon from "../styled/Icon";
 
-// const headerTitleApp = "Decolar";
-
-// createStackNavigator(
-//   {
-//     [constants.ROUTES.HOME_STACK]: {
-//       screen: createDrawerNavigator(
-//         { [constants.ROUTES.HOME]: Home, [constants.ROUTES.ABOUT]: Discover },
-//         {
-//           initialRouteName: constants.ROUTES.HOME,
-//           // contentComponent: Sidebar,
-//           contentOptions: {
-//             activeTintColor: colors.COLOR_PRIMARY,
-//           },
-//         },
-//       ),
-//       navigationOptions: ({ navigation, ...others }) => {
-//         const headerTitle = navigation.getParam(
-//           "organizationName",
-//           headerTitleApp,
-//         );
-//         return navigationOptions(headerTitle)({ ...others, navigation });
-//       },
-//     },
-//   },
-//   {
-//     initialRouteName: constants.ROUTES.HOME_STACK,
-//     defaultNavigationOptions: ({ navigation }) => ({
-//       headerTitle: headerTitleApp,
-//       headerTitleAlign: "center",
-//       headerBackTitleVisible: true,
-//       headerLeft: () => <MenuIcon navigation={navigation} />,
-//       headerStyle: { backgroundColor: colors.COLOR_BACKGROUND },
-//       headerTintColor: colors.COLOR_PRIMARY,
-//       headerTitleStyle: { fontWeight: "bold" },
-//     }),
-//   },
-// );
-
-export default createMaterialTopTabNavigator(
+export default createStackNavigator(
   {
-    [constants.ROUTES.HOME]: {
-      screen: Tickets,
-      navigationOptions: {
-        title: "Passagens",
-        tabBarIcon: <Icon iconName="airplane" />,
-      },
-    },
-    [constants.ROUTES.ABOUT]: {
-      screen: Discover,
-      navigationOptions: {
-        title: "Descubra",
-        tabBarIcon: <Icon iconName="compass" />,
-      },
+    [constants.ROUTES.HOME_STACK]: {
+      screen: createMaterialTopTabNavigator(
+        {
+          [constants.ROUTES.TICKETS]: {
+            screen: Tickets,
+            navigationOptions: {
+              title: "Passagens",
+              tabBarIcon: ({ tintColor }) => (
+                <Icon iconName="airplane" color={tintColor} />
+              ),
+            },
+          },
+          [constants.ROUTES.DISCOVER]: {
+            screen: Discover,
+            navigationOptions: {
+              title: "Descubra",
+              tabBarIcon: ({ tintColor }) => (
+                <Icon iconName="compass" color={tintColor} />
+              ),
+            },
+          },
+        },
+        {
+          initialRouteName: constants.ROUTES.TICKETS,
+          backBehavior: "history",
+          swipeEnabled: true,
+          lazy: true,
+          tabBarOptions: {
+            tabStyle: {
+              backgroundColor: colors.COLOR_BACKGROUND,
+            },
+            activeTintColor: colors.COLOR_PRIMARY,
+            inactiveTintColor: colors.COLOR_GRAY_BLACK,
+            showIcon: true,
+            showLabel: true,
+            scrollEnabled: false,
+          },
+        },
+      ),
     },
   },
   {
-    initialRouteName: constants.ROUTES.HOME,
-    backBehavior: "history",
-    swipeEnabled: true,
-    lazy: true,
-    tabBarOptions: {
-      activeTintColor: colors.COLOR_PRIMARY,
-      inactiveTintColor: colors.COLOR_GRAY,
-      showIcon: true,
-      showLabel: true,
-      scrollEnabled: true,
+    initialRouteName: constants.ROUTES.HOME_STACK,
+    keyboardHandlingEnabled: true,
+    defaultNavigationOptions: {
+      headerTitle: () => (
+        <Image
+          style={{ width: 112, height: 24 }}
+          source={images.icons.logoHeader}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: colors.COLOR_BACKGROUND,
+        height: 40,
+        borderBottomWidth: 0,
+      },
+      headerTintColor: colors.COLOR_PRIMARY,
     },
   },
 );

@@ -14,17 +14,17 @@ export const TextInput = styled.TextInput`
   border-color: ${colors.COLOR_GRAY};
 `;
 
-export const ButtonText = styled(Text)`
-  font-size: 20px;
-  text-align: center;
-`;
-
 export const Button = styled.TouchableOpacity`
   border-width: 1px;
   padding: 5px;
   margin: 5px;
   width: auto;
-  border-radius: 5px;
-  border-color: ${colors.COLOR_PRIMARY};
-  background-color: ${colors.COLOR_PRIMARY};
+  border-radius: 25px;
+  border-color: ${colors.COLOR_RED};
+  background-color: ${colors.COLOR_RED};
+`;
+
+export const ButtonText = styled(Text)`
+  font-size: 20px;
+  text-align: center;
 `;
