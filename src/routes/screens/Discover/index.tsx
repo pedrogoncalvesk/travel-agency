@@ -5,6 +5,8 @@ import { Input } from 'react-native-elements';
 import { GlobalContext } from "../../../config/sharedState";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { withTheme } from "styled-components";
+import ContainerPurple from "../../../styled/ContainerPurple";
+import ContainerPrimary from "../../../styled/ContainerPrimary";
 import { Text, TextInput, Button, ButtonText } from "../Tickets/styled";
 
 export default function About() {
@@ -20,16 +22,8 @@ export default function About() {
   }
 
   return (
-    <View style={{ backgroundColor: "#efeff4" }}>
-      <View
-        style={{
-          backgroundColor: "#8b008b",
-          width: "auto",
-          height: "auto",
-          margin: 30,
-          borderRadius:20,
-        }}
-      >
+    <ContainerPurple>
+      <ContainerPrimary>
         <View
         style={{
           margin:20
@@ -49,7 +43,7 @@ export default function About() {
           </View>
           <Text>TESTE - Informações de: {infoAbout}</Text>
         </View>
-      </View>
-    </View>
+      </ContainerPrimary>
+    </ContainerPurple>
   );
 }
