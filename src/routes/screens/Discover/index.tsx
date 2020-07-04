@@ -12,13 +12,21 @@ import { Text, TextInput, Button, ButtonText } from "../Tickets/styled";
 export default function About() {
   const [globalState] = useContext(GlobalContext)();
   const [infoAbout, setInfoAbout] = useState('Lugar');
+  const [currecy, setCurrency] = useState('nao chamou');
+  const [language, setLanguage] = useState('nao chamou');
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     console.log(globalState);
   }, [globalState]);
 
   function handleButtonInformations() {
-    alert('Enviar os valores para a API e atualizar a pagina');
+    
+    if(showInfo == false)
+    {
+      setShowInfo(true);
+    }
+    console.log(showInfo)
   }
 
   return (
@@ -41,6 +49,12 @@ export default function About() {
               <Text>Buscar</Text>
             </Button>
           </View>
+          {
+          showInfo ? <Text style= {{ fontSize: 25, textAlign: 'center' }}>A moeda utilizada é {currecy}, a lingua falada é {language}
+          </Text> : null
+          }
+          
+
           <Text>TESTE - Informações de: {infoAbout}</Text>
         </View>
       </ContainerPrimary>
