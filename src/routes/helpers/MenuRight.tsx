@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image, TouchableOpacity, Platform } from "react-native";
 
+// eslint-disable-next-line no-unused-vars,import/named
+import { ScreenProps } from "../../App";
 import { colors } from "../../config/theme";
-// eslint-disable-next-line no-unused-vars
-import { CountryType } from "../../utils/Country";
 import Flags from "../../utils/Flags";
 import SelectPicker from "../../components/SelectPicker";
 import Icon from "../../styled/Icon";
 import isObject from "../../utils/object/isObject";
 
-const MenuRight = (props: MenuRightProps) => {
+const MenuRight = (props: ScreenProps) => {
   const { getCountries, getCountry, t, setLocale, locale } = props;
-  const [countries] = useState(getCountries().map((c, i) => ({ ...c, id: i })));
+  const [countries] = useState(
+    getCountries().map((c, i) => ({ ...c, id: `${i}` })),
+  );
   const [country, setCountry] = useState({ id: -1 });
   const [isVisible, setIsVisible] = useState(false);
 
@@ -27,8 +29,44 @@ const MenuRight = (props: MenuRightProps) => {
     }
   }, [countries, locale]);
 
+  const renderModal = () => {
+    if (!isVisible || !Array.isArray(countries)) return null;
+    const style =
+      Platform.OS === "web"
+        ? {
+            display: "block",
+            position: "fixed",
+            width: "100vw",
+            height: "100vh",
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          }
+        : {};
+
+    return (
+      // @ts-ignore
+      <View style={{ ...style }}>
+        <SelectPicker
+          titleIOS={t("country")}
+          titleAndroid={t("country")}
+          isVisible={isVisible}
+          value={`${country.id}`}
+          list={countries}
+          onChange={(value: any) => {
+            // @ts-ignore
+            // eslint-disable-next-line radix
+            setLocale(countries[parseInt(value)].locale);
+          }}
+          onCancel={() => setIsVisible(false)}
+        />
+      </View>
+    );
+  };
+
   return (
-    <View>
+    <>
       <TouchableOpacity
         style={{
           justifyContent: "center",
@@ -49,36 +87,9 @@ const MenuRight = (props: MenuRightProps) => {
         />
         <Icon iconName="arrow-dropdown" color={colors.COLOR_GRAY_BLACK} />
       </TouchableOpacity>
-      <View style={{ position: "absolute" }}>
-        {isVisible && Array.isArray(countries) && (
-          <SelectPicker
-            titleIOS={t("country")}
-            titleAndroid={t("country")}
-            isVisible={isVisible}
-            value={country.id}
-            list={countries}
-            onChange={(value: any) => {
-              // @ts-ignore
-              setLocale(countries[value].locale);
-            }}
-            onCancel={() => setIsVisible(false)}
-          />
-        )}
-      </View>
-    </View>
+      {renderModal()}
+    </>
   );
 };
-
-interface MenuRightProps {
-  getCountries(): Array<CountryType>;
-
-  getCountry(l: string): CountryType;
-
-  t(scope: string | string[]): string;
-
-  setLocale(l: string): any;
-
-  locale: string;
-}
 
 export default MenuRight;

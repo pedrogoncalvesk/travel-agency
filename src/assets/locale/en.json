@@ -1,3 +1,19 @@
 {
-  "country": "Country"
+  "country": "Country",
+  "Tickets": "Tickets",
+  "Tickets-Title": "Enter your travel information",
+  "Tickets-From": "Home",
+  "Tickets-From-Placeholder": "E.g.: New York",
+  "Tickets-To": "Destination",
+  "Tickets-To-Placeholder": "E.g.: Sao Paulo",
+  "Tickets-StartDate": "Date of departure",
+  "Tickets-StartDate-Placeholder": "MM-DD-YYYY",
+  "Tickets-EndDate": "Return date",
+  "Tickets-EndDate-Placeholder": "MM-DD-YYYY",
+  "Tickets-Search": "Search",
+  "Discover": "Discover",
+  "Discover-Title": "Where do you want to know more?",
+  "Discover-Local": "Local",
+  "Discover-Placeholder": "E.g.: Sao Paulo",
+  "Discover-Search": "Search"
 }

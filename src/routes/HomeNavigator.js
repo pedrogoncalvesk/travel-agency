@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Image, TouchableOpacity } from "react-native";
+import React from "react";
+import { Image } from "react-native";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 
@@ -7,10 +7,7 @@ import constants from "../config/constants";
 import { colors } from "../config/theme";
 import images from "../config/images";
 import MenuRight from "./helpers/MenuRight";
-import Flags from "../utils/Flags";
 import Icon from "../styled/Icon";
-import RootContainer from "../styled/RootContainer";
-import SelectPicker from "../components/SelectPicker";
 
 import Tickets from "./screens/Tickets";
 import Discover from "./screens/Discover";
@@ -22,21 +19,21 @@ export default createStackNavigator(
         {
           [constants.ROUTES.TICKETS]: {
             screen: Tickets,
-            navigationOptions: {
-              title: "Passagens",
+            navigationOptions: ({ screenProps: { t } }) => ({
+              title: t("Tickets"),
               tabBarIcon: ({ tintColor }) => (
                 <Icon iconName="airplane" color={tintColor} />
               ),
-            },
+            }),
           },
           [constants.ROUTES.DISCOVER]: {
             screen: Discover,
-            navigationOptions: {
-              title: "Descubra",
+            navigationOptions: ({ screenProps: { t } }) => ({
+              title: t("Discover"),
               tabBarIcon: ({ tintColor }) => (
                 <Icon iconName="compass" color={tintColor} />
               ),
-            },
+            }),
           },
         },
         {

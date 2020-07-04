@@ -1,3 +1,19 @@
 {
-  "country": "País"
+  "country": "País",
+  "Tickets": "Passagens",
+  "Tickets-Title": "Insira as informações da sua viagem",
+  "Tickets-From": "Origem",
+  "Tickets-From-Placeholder": "Ex.: São Paulo",
+  "Tickets-To": "Destino",
+  "Tickets-To-Placeholder": "Ex.: Salvador",
+  "Tickets-StartDate": "Data da ida",
+  "Tickets-StartDate-Placeholder": "DD/MM/YYYY",
+  "Tickets-EndDate": "Data da volta",
+  "Tickets-EndDate-Placeholder": "DD/MM/YYYY",
+  "Tickets-Search": "Procurar",
+  "Discover": "Descubra",
+  "Discover-Title": "Sobre onde deseja conhecer mais?",
+  "Discover-Local": "Local",
+  "Discover-Placeholder": "Ex.: São Paulo",
+  "Discover-Search": "Buscar"
 }

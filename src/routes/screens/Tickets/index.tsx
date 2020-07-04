@@ -2,14 +2,20 @@ import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Input } from "react-native-elements";
 
+// eslint-disable-next-line no-unused-vars
+import { DefaultProps } from "../../../App";
 import { GlobalContext } from "../../../config/sharedState";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
+import { colors } from "../../../config/theme";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
 import { Text, Button, ButtonText } from "./styled";
 
-export default function Tickets() {
+const Tickets = (props: DefaultProps) => {
+  const {
+    screenProps: { t },
+  } = props;
   const [globalState] = useContext(GlobalContext)();
   const [flightFrom, setFlightFrom] = useState("São Paulo");
   const [flightTo, setFlightTo] = useState("Belo Horizonte");
@@ -28,35 +34,44 @@ export default function Tickets() {
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
         <ContainerPrimary>
-          <Text>Insira as informações de sua viagem</Text>
+          <Text style={{ marginBottom: 10, fontSize: 20 }}>
+            {t("Tickets-Title")}
+          </Text>
 
-          <Text>Origem:</Text>
+          <Text>{t("Tickets-From")}</Text>
           <Input
-            style={{ justifyContent: "flex-start" }}
-            placeholder="ex: São Paulo"
+            placeholderTextColor={colors.COLOR_GRAY}
+            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
+            placeholder={t("Tickets-From-Placeholder")}
             onChangeText={val => setFlightFrom(val)}
           />
-          <Text>Destino:</Text>
+          <Text>{t("Tickets-To")}</Text>
           <Input
-            placeholder="ex: Belo Horizonte"
+            placeholderTextColor={colors.COLOR_GRAY}
+            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
+            placeholder={t("Tickets-To-Placeholder")}
             onChangeText={val => setFlightTo(val)}
           />
-          <Text> Data da ida:</Text>
+          <Text>{t("Tickets-StartDate")}</Text>
           <Input
+            placeholderTextColor={colors.COLOR_GRAY}
+            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             leftIcon={<Icon iconName="calendar" size={24} color="white" />}
-            placeholder=" 20/07/2020"
+            placeholder={t("Tickets-StartDate-Placeholder")}
             onChangeText={val => setDateBegin(val)}
           />
-          <Text>Data da volta:</Text>
+          <Text>{t("Tickets-EndDate")}</Text>
           <Input
+            placeholderTextColor={colors.COLOR_GRAY}
+            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             leftIcon={<Icon iconName="calendar" size={24} color="white" />}
-            placeholder=" 30/07/2020"
+            placeholder={t("Tickets-EndDate-Placeholder")}
             onChangeText={val => setDateEnd(val)}
           />
 
           <View>
             <Button onPress={() => handleButtonSearch()}>
-              <ButtonText>Procurar</ButtonText>
+              <ButtonText>{t("Tickets-Search")}</ButtonText>
             </Button>
           </View>
           <Text>
@@ -67,4 +82,6 @@ export default function Tickets() {
       </ContainerPurple>
     </ScrollContainer>
   );
-}
+};
+
+export default Tickets;
