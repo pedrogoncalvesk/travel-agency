@@ -7,7 +7,7 @@ import { DefaultProps } from "../../../App";
 import { GlobalContext } from "../../../config/sharedState";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
-import { Text, Button } from "../Tickets/styled";
+import { Text, Button } from "../Tickets/helpers/styled";
 
 const Discover = (props: DefaultProps) => {
   const {

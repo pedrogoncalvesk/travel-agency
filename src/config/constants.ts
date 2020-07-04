@@ -22,10 +22,9 @@ export default {
   // URLS
   // base url to api requests
   // eslint-disable-next-line no-undef
-  BASE_URL: "http://localhost:9081/",
+  BASE_URL: "http://localhost:9091/",
   // urls to api requests
   API: {
-    LOGIN: "auth/login",
-    VALIDATE: "auth/validate",
+    PLACES: "listPlaces",
   },
 };

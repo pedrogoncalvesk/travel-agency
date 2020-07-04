@@ -6,8 +6,9 @@ export interface CountryType {
   dialCode: string;
   priority: number;
   areasCodes: null | Array<number>;
-  locales: undefined | Array<string>;
-  locale: undefined | string;
+  locales?: Array<string>;
+  locale?: string;
+  currency?: string;
 }
 
 export const Country = C;

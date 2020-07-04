@@ -7,7 +7,7 @@ import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
-import { Text, Button, ButtonText } from "../Tickets/styled";
+import { Text, Button, ButtonText } from "../Tickets/helpers/styled";
 
 export default function Tickets() {
   const [globalState] = useContext(GlobalContext)();
