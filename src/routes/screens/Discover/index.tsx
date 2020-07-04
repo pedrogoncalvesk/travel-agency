@@ -15,13 +15,19 @@ const Discover = (props: DefaultProps) => {
   } = props;
   const [globalState] = useContext(GlobalContext)();
   const [infoAbout, setInfoAbout] = useState("Lugar");
+  const [currency, setCurrency] = useState("nao chamou");
+  const [language, setLanguage] = useState("nao chamou");
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     console.log(globalState);
   }, [globalState]);
 
   function handleButtonInformations() {
-    alert("Enviar os valores para a API e atualizar a pagina");
+    if (showInfo === false) {
+      setShowInfo(true);
+    }
+    console.log(showInfo);
   }
 
   return (
@@ -45,6 +51,12 @@ const Discover = (props: DefaultProps) => {
               <Text>{t("Discover-Search")}</Text>
             </Button>
           </View>
+          {showInfo ? (
+            <Text style={{ fontSize: 25, textAlign: "center" }}>
+              A moeda utilizada é {currency}, a lingua falada é {language}
+            </Text>
+          ) : null}
+
           <Text>TESTE - Informações de: {infoAbout}</Text>
         </View>
       </ContainerPrimary>
