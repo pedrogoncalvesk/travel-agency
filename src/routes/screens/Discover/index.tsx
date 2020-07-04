@@ -53,7 +53,7 @@ const Discover = (props: DefaultProps) => {
           </View>
           {showInfo ? (
             <Text style={{ fontSize: 25, textAlign: "center" }}>
-              A moeda utilizada é {currency}, a lingua falada é {language}
+              {t("Discover-Currency")} {currency}. {" "} {t("Discover-Language")} {language}
             </Text>
           ) : null}
 

@@ -15,5 +15,7 @@
   "Discover-Title": "Where do you want to know more?",
   "Discover-Local": "Local",
   "Discover-Placeholder": "E.g.: Sao Paulo",
-  "Discover-Search": "Search"
+  "Discover-Search": "Search",
+  "Discover-Currency": "Currency",
+  "Discover-Language": "Language"
 }
