@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Input } from 'react-native-elements';
 
 import { GlobalContext } from "../../../config/sharedState";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { withTheme } from "styled-components";
+import { Text, TextInput, Button, ButtonText } from "../Tickets/styled";
 
 export default function About() {
   const [globalState] = useContext(GlobalContext)();
@@ -32,53 +34,22 @@ export default function About() {
         style={{
           margin:20
         }}>
-          <Text style={styles.texto}>Sobre onde deseja conhecer mais?</Text>
+          <Text>Sobre onde deseja conhecer mais?</Text>
 
-          <Text style={styles.texto}>Local</Text>
-          <TextInput
-          style={[styles.input, {justifyContent: "flex-start"}]}
+          <Text>Local</Text>
+          <Input
           placeholder='ex: São Paulo'
-          onChangeText={(val) => setInfoAbout(val)}/>
+          onChangeText={val => setInfoAbout(val)}/>
 
           <View>
-            <TouchableOpacity style={styles.saveButton}
+            <Button
               onPress={() => handleButtonInformations()}>
-              <Text style={styles.saveButtonText}>Buscar</Text>
-            </TouchableOpacity>
+              <Text>Buscar</Text>
+            </Button>
           </View>
-          <Text style={styles.texto}>TESTE - Informações de: {infoAbout}</Text>
+          <Text>TESTE - Informações de: {infoAbout}</Text>
         </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  texto: {
-    color: "white"
-  },
-  container: {
-    margin:30
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
-  },
-  saveButton: {
-    borderWidth: 1,
-    borderColor: '#007BFF',
-    backgroundColor: '#007BFF',
-    padding: 5,
-    margin: 5,
-    width: 80,
-    borderRadius: 3,
-  },
-  saveButtonText: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    textAlign: 'center'
-  }
-})

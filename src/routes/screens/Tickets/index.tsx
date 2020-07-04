@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
+import { Input } from 'react-native-elements';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { GlobalContext } from "../../../config/sharedState";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
@@ -28,28 +30,40 @@ export default function Tickets() {
         <Text>Insira as informações de sua viagem</Text>
 
         <Text>Origem:</Text>
-        <TextInput
+        <Input
           style={{ justifyContent: "flex-start" }}
           placeholder="ex: São Paulo"
           onChangeText={val => setFlightFrom(val)}
         />
 
         <Text>Destino:</Text>
-        <TextInput
+        <Input
           placeholder="ex: Belo Horizonte"
           onChangeText={val => setFlightTo(val)}
         />
 
         <Text> Data da ida:</Text>
-        <TextInput
-          placeholder="ex: 20/07/2020"
-          onChangeText={val => setDateBegin(val)}
-        />
+        <Input
+		  	leftIcon={
+			<Icon
+			  name='calendar'
+			  size={24}
+			  color='white'
+			/>}
+            placeholder=" 20/07/2020"
+            onChangeText={val => setDateBegin(val)}
+          />
 
         <Text>Data da volta:</Text>
-        <TextInput
-          placeholder="ex: 30/07/2020"
-          onChangeText={val => setDateEnd(val)}
+        <Input
+			leftIcon={
+				<Icon
+					name='calendar'
+					size={24}
+					color='white'
+				/>}
+			placeholder=" 30/07/2020"
+			onChangeText={val => setDateEnd(val)}
         />
 
         <View>
