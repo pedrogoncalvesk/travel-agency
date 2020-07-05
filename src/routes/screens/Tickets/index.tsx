@@ -6,12 +6,13 @@ import moment from "moment";
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
 // eslint-disable-next-line no-unused-vars
-import { Place } from "../../helpers/types";
+import { Carrier, Place } from "../../helpers/types";
 import { GlobalContext } from "../../../config/sharedState";
 import { colors } from "../../../config/theme";
 import getZuluTime from "../../../utils/getZuluTime";
 import alert from "../../../utils/alert";
 import isString from "../../../utils/string/isString";
+import isObject from "../../../utils/object/isObject";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
@@ -62,7 +63,6 @@ const Tickets = (props: DefaultProps) => {
 
   const _handleButtonSearch = async () => {
     const c = getCountry(locale);
-    console.log(c, locale, c.dateFormat);
     const dateBegin = moment(globalState.dateBegin, "DD/MM/YYYY");
     const dateEnd = moment(globalState.dateEnd, "DD/MM/YYYY");
     if (
@@ -80,10 +80,74 @@ const Tickets = (props: DefaultProps) => {
         outboundpartialdate: getZuluTime(dateBegin.toDate(), true),
         inboundpartialdate: getZuluTime(dateEnd.toDate(), true),
       });
-      console.log(r);
-      // if (typeof r === "boolean" || !Array.isArray(r.Places)) return;
+      if (
+        typeof r === "boolean" ||
+        !Array.isArray(r.Quotes) ||
+        !Array.isArray(r.Places) ||
+        !Array.isArray(r.Carriers) ||
+        !Array.isArray(r.Currencies) ||
+        !r.Currencies.length
+      ) {
+        return;
+      }
+
+      const {
+        Carriers,
+        Places,
+        Currencies: [Currency],
+      } = r;
+      const f = r.Quotes.map(quote => {
+        const Price = quote.MinPrice.toLocaleString(locale, {
+          style: "currency",
+          currency: Currency.Code,
+          minimumFractionDigits: Currency.DecimalDigits,
+        });
+        const { OutboundLeg } = quote;
+        let CarriersInfo = null;
+        let Origin = null;
+        let Destination = null;
+
+        if (isObject(OutboundLeg)) {
+          if ("CarrierIds" in OutboundLeg) {
+            CarriersInfo = OutboundLeg.CarrierIds.reduce(
+              (acc: Array<Carrier>, id: number | string) => {
+                const carrier = Carriers.find(
+                  ({ CarrierId }) => `${CarrierId}` === `${id}`,
+                );
+                if (typeof carrier !== "undefined" && isObject(carrier)) {
+                  return [...acc, carrier];
+                }
+                return acc;
+              },
+              [],
+            );
+          }
+          if ("OriginId" in OutboundLeg) {
+            const p = Places.find(
+              ({ PlaceId }) => `${PlaceId}` === `${OutboundLeg.OriginId}`,
+            );
+            if (typeof p !== "undefined") {
+              Origin = { ...p };
+            }
+          }
+          if ("DestinationId" in OutboundLeg) {
+            const p = Places.find(
+              ({ PlaceId }) => `${PlaceId}` === `${OutboundLeg.DestinationId}`,
+            );
+            if (typeof p !== "undefined") {
+              Destination = { ...p };
+            }
+          }
+        }
+        return {
+          ...quote,
+          Currency,
+          Price,
+          OutboundLeg: { ...OutboundLeg, CarriersInfo, Origin, Destination },
+        };
+      });
       // @ts-ignore
-      // setPlacesTo(r);
+      setFlights(f);
       return;
     }
     alert("Oops...", "As datas informadas não são válidas.");

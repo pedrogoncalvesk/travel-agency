@@ -36,19 +36,24 @@ export interface BrowseQuotesResponse {
 }
 
 export interface Quote {
-  QuoteId: number;
+  QuoteId: number | string;
   MinPrice: number;
   Direct: boolean;
   OutboundLeg: Leg;
   InboundLeg: Leg;
   QuoteDateTime: string;
+  Price?: string;
+  Currency?: Currency;
 }
 
 export interface Leg {
-  CarrierIds: Array<number>;
+  CarrierIds: Array<number | string>;
   OriginId: number;
   DestinationId: number;
   DepartureDate: number;
+  CarriersInfo?: Array<Carrier> | null;
+  Origin: PlaceResult | null;
+  Destination: PlaceResult | null;
 }
 
 export interface PlaceResult {
