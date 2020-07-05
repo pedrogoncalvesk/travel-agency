@@ -67,7 +67,7 @@ export default createStackNavigator(
       headerTitle: () => (
         <Image
           style={{ width: 112, height: 24 }}
-          source={images.icons.logoHeader}
+          source={images.logoHeader}
           resizeMode="contain"
         />
       ),

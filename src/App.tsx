@@ -55,8 +55,9 @@ export default function App(props: AppProps): JSX.Element {
 
   const _cacheResourcesAsync = async () => {
     const imageArr = [
-      images.icons.logo,
-      images.icons.logoHeader,
+      images.icon,
+      images.splash,
+      images.logoHeader,
       images.flags.br,
       images.flags.us,
     ];

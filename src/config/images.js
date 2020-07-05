@@ -2,10 +2,9 @@
  * App config for images
  */
 const images = {
-  icons: {
-    logoHeader: require("../assets/images/icons/logo_header.png"),
-    logo: require("../assets/images/icons/logo.png"),
-  },
+  icon: require("../assets/images/icon.png"),
+  splash: require("../assets/images/splash.png"),
+  logoHeader: require("../assets/images/logo_header.png"),
   flags: {
     ad: require("../assets/images/flags/ad.png"),
     ae: require("../assets/images/flags/ae.png"),
