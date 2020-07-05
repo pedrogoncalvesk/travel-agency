@@ -1671,7 +1671,7 @@
       "en-US"
     ],
     "currency": "USD",
-    "dateFormat": "DD/MM/YYYY"
+    "dateFormat": "MM-DD-YYYY"
   },
   {
     "name": "Uruguay",

@@ -64,13 +64,12 @@ const Tickets = (props: DefaultProps) => {
     console.log(globalState);
   }, [globalState]);
 
-  const _handleButtonSearch = async () => {
+  const _handleButtonSearch = async (): Promise<void> => {
     const c = getCountry(locale);
-    const dateBegin = moment(globalState.dateBegin, "DD/MM/YYYY");
-    const dateEnd = moment(globalState.dateEnd, "DD/MM/YYYY");
+    const dateBegin = moment(globalState.dateBegin, c.dateFormat);
+    const dateEnd = moment(globalState.dateEnd, c.dateFormat);
     if (
-      dateBegin.isValid() &&
-      dateEnd.isValid() &&
+      (isAnyDate || (dateBegin.isValid() && dateEnd.isValid())) &&
       "PlaceId" in globalState.flightFrom &&
       "PlaceId" in globalState.flightTo
     ) {
@@ -149,11 +148,15 @@ const Tickets = (props: DefaultProps) => {
           OutboundLeg: { ...OutboundLeg, CarriersInfo, Origin, Destination },
         };
       });
+
+      console.log("the flights", f);
       // @ts-ignore
       setFlights(f);
-      return;
-    }
-    alert("Oops...", "As datas informadas não são válidas.");
+    } else
+      alert(
+        "Oops...",
+        "Parece que está faltando alguma informação ou existe alguma informação no formulário errada. Por favor, tente novamente.",
+      );
   };
 
   const _handleClear = () => {

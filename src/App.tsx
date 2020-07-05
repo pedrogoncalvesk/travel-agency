@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import i18n from "i18n-js";
 import { StatusBar } from "expo-status-bar";
 import { AppLoading } from "expo";
@@ -6,20 +6,32 @@ import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import * as Icon from "@expo/vector-icons";
 
+// eslint-disable-next-line no-unused-vars
+import { Country, CountryType } from "./utils/Country";
+import { GlobalContext } from "./config/sharedState";
 import localeConfig from "./config/locale";
 import images from "./config/images";
 import { colors } from "./config/theme";
 import AppNavigator from "./routes";
 import RootSafeContainer from "./styled/RootSafeContainer";
 import isObject from "./utils/object/isObject";
-// eslint-disable-next-line no-unused-vars
-import { Country, CountryType } from "./utils/Country";
 
 export default function App(props: AppProps): JSX.Element {
   const { skipLoadingScreen } = props;
+  const [globalState, setGlobalState] = useContext(GlobalContext)();
 
   const [locale, setLocale] = useState(localeConfig);
   const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (locale !== globalState.locale) {
+      setLocale(globalState.locale);
+    }
+  }, [locale, globalState.locale]);
+
+  const _setLocale = (newLocale: string): void => {
+    setGlobalState({ ...globalState, locale: newLocale });
+  };
 
   const _t = (scope: string | string[], options?: object): string =>
     i18n.t(scope, { locale, ...(isObject(options) ? options : {}) });
@@ -103,7 +115,7 @@ export default function App(props: AppProps): JSX.Element {
           t: _t,
           getCountries: _getCountries,
           getCountry: _getCountry,
-          setLocale,
+          setLocale: _setLocale,
           locale,
         }}
       />

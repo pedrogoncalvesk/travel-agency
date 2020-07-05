@@ -5,10 +5,11 @@ import { Place } from "../routes/helpers/types";
 import stateManager from "../utils/StateManager";
 import constants from "./constants";
 
-const initialState: GlobalStateProps = {
+export const initialState: GlobalStateProps = {
   isDrawerOpen: false,
   isLoading: false,
   loadingMessage: "",
+  locale: "pt-BR",
   flightFrom: {},
   flightTo: {},
   dateBegin: "",
@@ -27,6 +28,7 @@ export interface GlobalStateProps {
   isDrawerOpen: boolean;
   isLoading: boolean;
   loadingMessage: string;
+  locale: string;
   flightFrom: object | Place;
   flightTo: object | Place;
   flights: Array<any>;
