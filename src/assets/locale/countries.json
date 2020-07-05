@@ -195,8 +195,12 @@
     "priority": 0,
     "areaCodes": null,
     "locale": "pt-BR",
-    "locales": ["pt", "pt-BR"],
-    "currency": "BRL"
+    "locales": [
+      "pt",
+      "pt-BR"
+    ],
+    "currency": "BRL",
+    "dateFormat": "DD/MM/YYYY"
   },
   {
     "name": "British Indian Ocean Territory",
@@ -1662,8 +1666,12 @@
     "priority": 0,
     "areaCodes": null,
     "locale": "en",
-    "locales": ["en", "en-US"],
-    "currency": "USD"
+    "locales": [
+      "en",
+      "en-US"
+    ],
+    "currency": "USD",
+    "dateFormat": "DD/MM/YYYY"
   },
   {
     "name": "Uruguay",

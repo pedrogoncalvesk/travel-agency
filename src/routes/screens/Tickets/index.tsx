@@ -39,6 +39,7 @@ const Tickets = (props: DefaultProps) => {
   const [flightTo, setFlightTo] = useState("");
   const [placesFrom, setPlacesFrom] = useState([]);
   const [placesTo, setPlacesTo] = useState([]);
+  const [flights, setFlights] = useState([]);
   const [keyboardIsOpen, setKeyboardIsOpen] = useState(Platform.OS === "web");
 
   const _keyboardDidShow = () => setKeyboardIsOpen(true);
@@ -60,7 +61,8 @@ const Tickets = (props: DefaultProps) => {
   }, [globalState]);
 
   const _handleButtonSearch = async () => {
-    // console.log(globalState.flightFrom, globalState.flightTo, globalState.dateBegin, globalState.dateEnd);
+    const c = getCountry(locale);
+    console.log(c, locale, c.dateFormat);
     const dateBegin = moment(globalState.dateBegin, "DD/MM/YYYY");
     const dateEnd = moment(globalState.dateEnd, "DD/MM/YYYY");
     if (
@@ -69,8 +71,7 @@ const Tickets = (props: DefaultProps) => {
       "PlaceId" in globalState.flightFrom &&
       "PlaceId" in globalState.flightTo
     ) {
-      const c = getCountry(locale);
-      const x = await browseRoutes({
+      const r = await browseRoutes({
         locale,
         currency: c.currency || "",
         country: c.iso2,
@@ -79,7 +80,10 @@ const Tickets = (props: DefaultProps) => {
         outboundpartialdate: getZuluTime(dateBegin.toDate(), true),
         inboundpartialdate: getZuluTime(dateEnd.toDate(), true),
       });
-      console.log(x);
+      console.log(r);
+      // if (typeof r === "boolean" || !Array.isArray(r.Places)) return;
+      // @ts-ignore
+      // setPlacesTo(r);
       return;
     }
     alert("Oops...", "As datas informadas não são válidas.");

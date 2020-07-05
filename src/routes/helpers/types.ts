@@ -10,3 +10,7 @@ export interface Place {
   CityId: string;
   CountryName: string;
 }
+
+// export interface Routes {
+//   Quotes:
+// }

@@ -9,6 +9,7 @@ export interface CountryType {
   locales?: Array<string>;
   locale?: string;
   currency?: string;
+  dateFormat?: string;
 }
 
 export const Country = C;
