@@ -64,6 +64,7 @@ export default createStackNavigator(
     initialRouteName: constants.ROUTES.HOME_STACK,
     keyboardHandlingEnabled: true,
     defaultNavigationOptions: ({ screenProps }) => ({
+      headerBackTitleVisible: false,
       headerTitle: () => (
         <Image
           style={{ width: 112, height: 24 }}
