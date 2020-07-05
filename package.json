@@ -8,8 +8,7 @@
     "yarn": "^1.22.X"
   },
   "scripts": {
-    "heroku-prebuild": "yarn add global expo-cli",
-    "heroku-postbuild": "expo build:web",
+    "heroku-postbuild": "expo build:web && rm -rf node_modules src",
     "start": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -75,6 +74,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.1",
     "eslint-plugin-react-hooks": "^4.0.4",
+    "expo-cli": "^3.21.13",
     "prettier": "^2.0.5",
     "stylelint": "^13.6.1",
     "stylelint-config-rational-order": "^0.1.2",
