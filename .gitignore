@@ -111,5 +111,6 @@ Thumbs.db
 *.key
 *.mobileprovision
 *.orig.*
+web-build
 
 package-lock.json
