@@ -184,12 +184,14 @@ const Tickets = (props: DefaultProps) => {
               onChangeText={_handleChangeFrom}
               value={
                 !isString(flightFrom) &&
+                "PlaceName" in globalState.flightFrom &&
                 isString(globalState.flightFrom.PlaceName)
                   ? globalState.flightFrom.PlaceName
                   : flightFrom
               }
             />
-            {isString(flightFrom) && _renderPlacesBox(_renderItemFrom, placesFrom)}
+            {isString(flightFrom) &&
+              _renderPlacesBox(_renderItemFrom, placesFrom)}
           </Container>
           <Container style={{ zIndex: 1 }}>
             <Text>{t("Tickets-To")}</Text>
@@ -200,7 +202,9 @@ const Tickets = (props: DefaultProps) => {
               placeholder={t("Tickets-To-Placeholder")}
               onChangeText={_handleChangeTo}
               value={
-                !isString(flightTo) && isString(globalState.flightTo.PlaceName)
+                !isString(flightTo) &&
+                "PlaceName" in globalState.flightTo &&
+                isString(globalState.flightTo.PlaceName)
                   ? globalState.flightTo.PlaceName
                   : flightTo
               }
