@@ -79,7 +79,7 @@ const MenuRight = (props: MenuRightProps) => {
         }}
       >
         <Icon
-          iconName="basket"
+          name="basket"
           color={
             globalState.flights.length ? tintColor : colors.COLOR_GRAY_BLACK
           }
@@ -109,7 +109,7 @@ const MenuRight = (props: MenuRightProps) => {
             source={Flags.get(getCountry(locale).iso2)}
             resizeMode="contain"
           />
-          <Icon iconName="arrow-dropdown" color={colors.COLOR_GRAY_BLACK} />
+          <Icon name="arrow-dropdown" color={colors.COLOR_GRAY_BLACK} />
         </TouchableOpacity>
       </View>
       {renderModal()}

@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import { Places } from "../../../helpers/types";
 import api from "../../../../utils/request/api";
 import constants from "../../../../config/constants";
 import alert from "../../../../utils/alert";
@@ -5,13 +7,12 @@ import alert from "../../../../utils/alert";
 export const listPlaces = async (
   data: ListPlacesBody,
   showMessage: boolean = false,
-): Promise<boolean | Array<any>> => {
+): Promise<boolean | Places> => {
   try {
-    const result = await api.post(constants.API.PLACES, data);
-    console.log(result);
-    return result;
+    return api.post(constants.API.PLACES, data);
   } catch (e) {
     // continue
+    // eslint-disable-next-line no-console
     console.log("error", e);
   }
 

@@ -1,0 +1,84 @@
+{
+  "Places": [
+    {
+      "PlaceId": "SAOA-sky",
+      "PlaceName": "São Paulo",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SAOA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "GRU-sky",
+      "PlaceName": "Sao Paulo Guarulhos",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SAOA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "CGH-sky",
+      "PlaceName": "São Paulo Congonhas",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SAOA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "VCP-sky",
+      "PlaceName": "São Paulo Viracopos",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SAOA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "SLZ-sky",
+      "PlaceName": "São Luís",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SLZA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "SJP-sky",
+      "PlaceName": "São José do Rio Preto",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SJPA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "SJK-sky",
+      "PlaceName": "São José Dos Campos",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "SJKA-sky",
+      "CountryName": "Brasil"
+    },
+    {
+      "PlaceId": "SFO-sky",
+      "PlaceName": "São Francisco Internacional",
+      "CountryId": "US-sky",
+      "RegionId": "CA",
+      "CityId": "SFOA-sky",
+      "CountryName": "Estados Unidos"
+    },
+    {
+      "PlaceId": "LED-sky",
+      "PlaceName": "São Petersburgo Pulkovo",
+      "CountryId": "RU-sky",
+      "RegionId": "",
+      "CityId": "PETE-sky",
+      "CountryName": "Rússia"
+    },
+    {
+      "PlaceId": "RAO-sky",
+      "PlaceName": "Ribeirão Preto",
+      "CountryId": "BR-sky",
+      "RegionId": "",
+      "CityId": "RAOA-sky",
+      "CountryName": "Brasil"
+    }
+  ]
+}

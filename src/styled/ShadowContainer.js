@@ -119,29 +119,13 @@ export const getShadowStyle = el => {
   };
 };
 
-const ShadowContainer = styled.View.attrs(
-  ({ scale, borderRadius, elevation: el }) => ({
-    style: getShadowStyle(el || 2),
-    // eslint-disable-next-line no-nested-ternary
-    borderRadius: !isNaN(scale)
-      ? Math.round(9.375 * scale)
-      : !isNaN(borderRadius)
-      ? borderRadius
-      : 0,
-  }),
-)`
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor || colors.COLOR_WHITE};
-  border-radius: ${({ borderRadius }) =>
-    isNaN(borderRadius) ? 0 : borderRadius};
-  border-top-left-radius: ${({ bottomRadius, borderRadius }) =>
-    bottomRadius || isNaN(borderRadius) ? 0 : borderRadius};
-  border-top-right-radius: ${({ bottomRadius, borderRadius }) =>
-    bottomRadius || isNaN(borderRadius) ? 0 : borderRadius};
-  border-bottom-left-radius: ${({ topRadius, borderRadius }) =>
-    topRadius || isNaN(borderRadius) ? 0 : borderRadius};
-  border-bottom-right-radius: ${({ topRadius, borderRadius }) =>
-    topRadius || isNaN(borderRadius) ? 0 : borderRadius};
+const ShadowContainer = styled.View.attrs(({ elevation: el }) => ({
+  style: getShadowStyle(el || 2),
+}))`
+  background-color: ${colors.COLOR_WHITE};
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  max-height: 150px;
 `;
 
 export const ShadowFix = styled.View`

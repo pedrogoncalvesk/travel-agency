@@ -8,7 +8,8 @@ const useGlobalState = stateManager(
     isDrawerOpen: false,
     isLoading: false,
     loadingMessage: "",
-    storageMetadata: {},
+    flightFrom: {},
+    flightTo: {},
     flights: [],
   },
   {

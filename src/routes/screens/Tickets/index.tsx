@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Keyboard } from "react-native";
+import { View, Keyboard, Platform } from "react-native";
 import { Input } from "react-native-elements";
 
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
+// eslint-disable-next-line no-unused-vars
+import { Place } from "../../helpers/types";
 import { GlobalContext } from "../../../config/sharedState";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
 import { colors } from "../../../config/theme";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
-import ShadowContainer, { ShadowFix } from "../../../styled/ShadowContainer";
+import ShadowContainer from "../../../styled/ShadowContainer";
 import {
+  Container,
   Text,
   Button,
   ButtonText,
@@ -27,13 +30,14 @@ const Tickets = (props: DefaultProps) => {
   const {
     screenProps: { t, locale, getCountry },
   } = props;
-  const [globalState] = useContext(GlobalContext)();
+  const [globalState, setGlobalState] = useContext(GlobalContext)();
   const [flightFrom, setFlightFrom] = useState("");
   const [flightTo, setFlightTo] = useState("");
   const [dateBegin, setDateBegin] = useState("06/07/2020");
   const [dateEnd, setDateEnd] = useState("18/07/2020");
-  const [places, setPlaces] = useState([]);
-  const [keyboardIsOpen, setKeyboardIsOpen] = useState(false);
+  const [placesFrom, setPlacesFrom] = useState([]);
+  const [placesTo, setPlacesTo] = useState([]);
+  const [keyboardIsOpen, setKeyboardIsOpen] = useState(Platform.OS === "web");
 
   const _keyboardDidShow = () => setKeyboardIsOpen(true);
   const _keyboardDidHide = () => setKeyboardIsOpen(false);
@@ -53,119 +57,112 @@ const Tickets = (props: DefaultProps) => {
     console.log(globalState);
   }, [globalState]);
 
-  const _handleChangeFrom = async (val: string) => {
-    setFlightFrom(val);
-
-    if (val.length >= 3) {
-      const c = getCountry(locale);
-      console.log(
-        "go to search places",
-        JSON.stringify({
-          queryParameter: val,
-          locale,
-          currency: c.currency,
-          country: c.iso2,
-        }),
-      );
-      // const p = await listPlaces({
-      //   queryParameter: val,
-      //   locale,
-      //   currency: c.currency || "",
-      //   country: c.iso2,
-      // });
-
-      const p = await fetch(
-        "http://producer-api.herokuapp.com/listPlaces",
-        // {
-        //   url: "http://localhost:9091/listPlaces",
-        //   // bodyUsed: true,
-        //   cache: "no-cache",
-        //   body: JSON.stringify({
-        //     queryParameter: val,
-        //     locale,
-        //     currency: c.currency || "",
-        //     country: c.iso2,
-        //   }),
-        //   // body: new TextEncoder("utf-8").encode(
-        //   //   JSON.stringify({
-        //   //     queryParameter: val,
-        //   //     locale,
-        //   //     currency: c.currency || "",
-        //   //     country: c.iso2,
-        //   //   }),
-        //   // ),
-        // },
-        {
-          method: "POST",
-          // keepalive: true,
-          // mode: "no-cors",
-          // mode: "navigate",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            queryParameter: val,
-            locale,
-            currency: c.currency || "",
-            country: c.iso2,
-          }),
-          // body: new TextEncoder("utf-8").encode(
-          //   JSON.stringify({
-          //     queryParameter: val,
-          //     locale,
-          //     currency: c.currency || "",
-          //     country: c.iso2,
-          //   }),
-          // ),
-        },
-      );
-      console.log(p);
-    }
-  };
-
   const handleButtonSearch = () => {
     console.log("Enviar os valores para a API e atualizar a pagina");
   };
 
-  const _handleSubmitQuery = id => {
-    console.log(id);
-    // if (!Array.isArray(list)) return;
-    //
-    // let item;
-    // let target = !isString(searchQuery) ? query : searchQuery;
-    //
-    // if (
-    //   isObject(id) &&
-    //   isObject(id.nativeEvent) &&
-    //   isString(id.nativeEvent.text)
-    // ) {
-    //   target = id.nativeEvent.text;
-    // }
-    //
-    // if (isNumber(id)) {
-    //   item = list.find(m => String(m[searchId]) === String(id));
-    // } else {
-    //   item = list.find(m => normalize(m[searchKey]) === normalize(target));
-    // }
-    //
-    // if (typeof item !== "undefined") {
-    //   const q = item[searchKey]
-    //     .split(" ")
-    //     .map(w => w.charAt(0).toUpperCase() + w.toLowerCase().slice(1))
-    //     .join(" ");
-    //
-    //   setQuery(q);
-    //   setSearchQuery("");
-    //   setFilteredList([]);
-    //
-    //   onSubmit && onSubmit(item);
-    //   onChange && onChange([{ ...item }]);
-    //   searchInput.blur();
-    // }
+  const _renderPlacesBox = (
+    renderFunction: ({ item }: Item) => JSX.Element,
+    places: Array<Place>,
+  ): JSX.Element | null => {
+    if (!keyboardIsOpen) {
+      return null;
+    }
+    return (
+      <ContainerBottomSearchBox>
+        {/* @ts-ignore */}
+        <ShadowContainer>
+          <List
+            data={places}
+            keyExtractor={(item: { PlaceId: any }) => `${item.PlaceId}`}
+            getItem={(data: any[], index: number) => data[index]}
+            getItemCount={(data: string | any[]) => data.length}
+            renderItem={renderFunction}
+          />
+        </ShadowContainer>
+      </ContainerBottomSearchBox>
+    );
   };
 
-  // @ts-ignore
-  const _renderItem = ({ item: { PlaceId, PlaceName } }) => (
-    <ListItemContainer onPress={() => _handleSubmitQuery(PlaceId)}>
-      {isString(PlaceName) && <ListItemText>{PlaceName}</ListItemText>}
+  /**
+   * SECTION FLIGHT FROM
+   */
+  const _makeRequestFrom = async (val: string) => {
+    const c = getCountry(locale);
+    const p = await listPlaces({
+      locale,
+      currency: c.currency || "",
+      country: c.iso2,
+      queryParameter: val,
+    });
+    if (typeof p === "boolean" || !Array.isArray(p.Places)) return;
+    // @ts-ignore
+    setPlacesFrom(p.Places);
+  };
+
+  const _handleChangeFrom = async (val: string) => {
+    setFlightFrom(val);
+    if (val.length === 0) {
+      setGlobalState({ ...globalState, flightFrom: {} });
+    }
+
+    if (val.length >= 3) {
+      await _makeRequestFrom(val);
+    }
+  };
+
+  const _handleSubmitFrom = (item: Place) => {
+    setFlightFrom(item.PlaceName);
+    setGlobalState({ ...globalState, flightFrom: item });
+    setPlacesFrom([]);
+  };
+
+  const _renderItemFrom = ({ item }: Item) => (
+    <ListItemContainer onPress={() => _handleSubmitFrom(item)}>
+      {isString(item.PlaceName) && (
+        <ListItemText>{item.PlaceName}</ListItemText>
+      )}
+    </ListItemContainer>
+  );
+
+  /**
+   * SECTION FLIGHT TO
+   */
+  const _makeRequestTo = async (val: string) => {
+    const c = getCountry(locale);
+    const p = await listPlaces({
+      locale,
+      currency: c.currency || "",
+      country: c.iso2,
+      queryParameter: val,
+    });
+    if (typeof p === "boolean" || !Array.isArray(p.Places)) return;
+    // @ts-ignore
+    setPlacesTo(p.Places);
+  };
+
+  const _handleChangeTo = async (val: string) => {
+    setFlightTo(val);
+    if (val.length === 0) {
+      setGlobalState({ ...globalState, flightTo: {} });
+    }
+
+    if (val.length >= 3) {
+      await _makeRequestTo(val);
+    }
+  };
+
+  const _handleSubmitTo = (item: Place) => {
+    setFlightTo(item.PlaceName);
+    setGlobalState({ ...globalState, flightTo: item });
+    setPlacesTo([]);
+  };
+
+  const _renderItemTo = ({ item }: Item) => (
+    <ListItemContainer onPress={() => _handleSubmitTo(item)}>
+      {isString(item.PlaceName) && (
+        <ListItemText>{item.PlaceName}</ListItemText>
+      )}
     </ListItemContainer>
   );
 
@@ -177,43 +174,45 @@ const Tickets = (props: DefaultProps) => {
             {t("Tickets-Title")}
           </Text>
 
-          <Text>{t("Tickets-From")}</Text>
-          <Input
-            containerStyle={{ paddingHorizontal: 0 }}
-            placeholderTextColor={colors.COLOR_GRAY}
-            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-            placeholder={t("Tickets-From-Placeholder")}
-            onChangeText={_handleChangeFrom}
-          />
-          {/* {keyboardIsOpen && flightFrom !== "" && ( */}
-          {/*  <ContainerBottomSearchBox> */}
-          {/*    <ShadowFix /> */}
-          {/*    /!* @ts-ignore *!/ */}
-          {/*    <ShadowContainer borderRadius={10} bottomRadius> */}
-          {/*      <List */}
-          {/*        data={places} */}
-          {/*        keyExtractor={(item: { PlaceId: any }) => `${item.PlaceId}`} */}
-          {/*        getItem={(data: any[], index: number) => data[index]} */}
-          {/*        getItemCount={(data: string | any[]) => data.length} */}
-          {/*        renderItem={_renderItem} */}
-          {/*      /> */}
-          {/*    </ShadowContainer> */}
-          {/*  </ContainerBottomSearchBox> */}
-          {/* )} */}
-          <Text>{t("Tickets-To")}</Text>
-          <Input
-            containerStyle={{ paddingHorizontal: 0 }}
-            placeholderTextColor={colors.COLOR_GRAY}
-            inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-            placeholder={t("Tickets-To-Placeholder")}
-            onChangeText={val => setFlightTo(val)}
-          />
+          <Container style={{ zIndex: 2 }}>
+            <Text>{t("Tickets-From")}</Text>
+            <Input
+              containerStyle={{ paddingHorizontal: 0 }}
+              placeholderTextColor={colors.COLOR_GRAY}
+              inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
+              placeholder={t("Tickets-From-Placeholder")}
+              onChangeText={_handleChangeFrom}
+              value={
+                !isString(flightFrom) &&
+                isString(globalState.flightFrom.PlaceName)
+                  ? globalState.flightFrom.PlaceName
+                  : flightFrom
+              }
+            />
+            {isString(flightFrom) && _renderPlacesBox(_renderItemFrom, placesFrom)}
+          </Container>
+          <Container style={{ zIndex: 1 }}>
+            <Text>{t("Tickets-To")}</Text>
+            <Input
+              containerStyle={{ paddingHorizontal: 0 }}
+              placeholderTextColor={colors.COLOR_GRAY}
+              inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
+              placeholder={t("Tickets-To-Placeholder")}
+              onChangeText={_handleChangeTo}
+              value={
+                !isString(flightTo) && isString(globalState.flightTo.PlaceName)
+                  ? globalState.flightTo.PlaceName
+                  : flightTo
+              }
+            />
+            {isString(flightTo) && _renderPlacesBox(_renderItemTo, placesTo)}
+          </Container>
           <Text>{t("Tickets-StartDate")}</Text>
           <Input
             containerStyle={{ paddingHorizontal: 0 }}
             placeholderTextColor={colors.COLOR_GRAY}
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-            leftIcon={<Icon iconName="calendar" size={24} color="white" />}
+            leftIcon={<Icon name="calendar" size={24} color="white" />}
             placeholder={t("Tickets-StartDate-Placeholder")}
             onChangeText={val => setDateBegin(val)}
           />
@@ -222,7 +221,7 @@ const Tickets = (props: DefaultProps) => {
             containerStyle={{ paddingHorizontal: 0 }}
             placeholderTextColor={colors.COLOR_GRAY}
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-            leftIcon={<Icon iconName="calendar" size={24} color="white" />}
+            leftIcon={<Icon name="calendar" size={24} color="white" />}
             placeholder={t("Tickets-EndDate-Placeholder")}
             onChangeText={val => setDateEnd(val)}
           />
@@ -241,5 +240,9 @@ const Tickets = (props: DefaultProps) => {
     </ScrollContainer>
   );
 };
+
+interface Item {
+  item: Place;
+}
 
 export default Tickets;

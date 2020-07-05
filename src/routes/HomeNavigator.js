@@ -23,7 +23,7 @@ export default createStackNavigator(
             navigationOptions: ({ screenProps: { t } }) => ({
               title: t("Tickets"),
               tabBarIcon: ({ tintColor }) => (
-                <Icon iconName="airplane" color={tintColor} />
+                <Icon name="airplane" color={tintColor} />
               ),
             }),
           },
@@ -32,7 +32,7 @@ export default createStackNavigator(
             navigationOptions: ({ screenProps: { t } }) => ({
               title: t("Discover"),
               tabBarIcon: ({ tintColor }) => (
-                <Icon iconName="compass" color={tintColor} />
+                <Icon name="compass" color={tintColor} />
               ),
             }),
           },

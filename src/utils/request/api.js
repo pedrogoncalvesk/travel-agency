@@ -23,7 +23,6 @@ const __makeRequest = (url, options, timeout, onProgress) => {
   if (typeof onProgress === "function") {
     return fetchProgress(url, options, onProgress);
   }
-  console.log("here", url, options);
   // eslint-disable-next-line no-undef
   return fetch(url, options);
 };
@@ -88,30 +87,18 @@ async function _post(
   // headers = { ...getHeaders(token), ...headers };
   const hds = { ...getHeaders(), ...headers };
 
-  return fetch(`${url}${path}`, {
-    method: "POST",
-    headers: hds,
-    keepAlive: true,
-    body: getBody(data, hds),
-    // body: null,
-  })
+  return __makeRequest(
+    `${url}${path}`,
+    {
+      method: "POST",
+      headers: hds,
+      body: getBody(data, hds),
+    },
+    timeout,
+    onProgress,
+  )
     .then(__tryGetJSON)
     .catch(__reject);
-  // return __makeRequest(
-  //   `${url}${path}`,
-  //   {
-  //     method: "POST",
-  //     headers: hds,
-  //     keepAlive: true,
-  //     body: getBody(data, hds),
-  //     bodyUsed: true,
-  //     // body: null,
-  //   },
-  //   timeout,
-  //   onProgress,
-  // )
-  //   .then(__tryGetJSON)
-  //   .catch(__reject);
 }
 
 async function _put(

@@ -1,6 +1,10 @@
 import styled from "styled-components/native";
 
-import { colors, deviceWidth } from "../../../../config/theme";
+import { colors } from "../../../../config/theme";
+
+export const Container = styled.View`
+  position: relative;
+`;
 
 export const Text = styled.Text`
   color: ${colors.COLOR_WHITE};
@@ -22,12 +26,14 @@ export const ButtonText = styled(Text)`
 `;
 
 export const ContainerBottomSearchBox = styled.View`
-  top: ${-22};
-  width: ${deviceWidth - 20};
+  position: absolute;
+  top: 47px;
+  width: 100%;
   height: auto;
-  max-height: 250px;
+  max-height: 150px;
   background-color: transparent;
-  border-radius: 0 0 10px 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   padding-bottom: 0;
   padding-top: 10px;
 `;
@@ -42,5 +48,5 @@ export const ListItemContainer = styled.TouchableOpacity`
 `;
 
 export const ListItemText = styled.Text`
-  font-size: 22px;
+  font-size: 14px;
 `;
