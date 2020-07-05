@@ -25,7 +25,7 @@ const Discover = (props: DefaultProps) => {
     console.log(globalState);
   }, [globalState]);
 
-  function handleButtonInformations() {
+  const _handleButtonInformations = () => {
     if (showInfo === false) {
       setShowInfo(true);
     }
@@ -53,7 +53,7 @@ const Discover = (props: DefaultProps) => {
             />
 
             <View>
-              <Button onPress={() => handleButtonInformations()}>
+              <Button onPress={() => _handleButtonInformations()}>
                 <ButtonText>{t("Discover-Search")}</ButtonText>
               </Button>
             </View>
