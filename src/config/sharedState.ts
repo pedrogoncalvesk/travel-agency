@@ -11,6 +11,8 @@ const initialState: GlobalStateProps = {
   loadingMessage: "",
   flightFrom: {},
   flightTo: {},
+  dateBegin: "",
+  dateEnd: "",
   flights: [],
 };
 
@@ -28,4 +30,6 @@ export interface GlobalStateProps {
   flightFrom: object | Place;
   flightTo: object | Place;
   flights: Array<any>;
+  dateBegin: string;
+  dateEnd: string;
 }

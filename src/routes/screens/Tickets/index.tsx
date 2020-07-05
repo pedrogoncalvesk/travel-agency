@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Keyboard, Platform } from "react-native";
 import { Input } from "react-native-elements";
+import moment from "moment";
 
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
 // eslint-disable-next-line no-unused-vars
 import { Place } from "../../helpers/types";
 import { GlobalContext } from "../../../config/sharedState";
+import { colors } from "../../../config/theme";
+import getZuluTime from "../../../utils/getZuluTime";
+import alert from "../../../utils/alert";
+import isString from "../../../utils/string/isString";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
-import { colors } from "../../../config/theme";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
 import ShadowContainer from "../../../styled/ShadowContainer";
 import {
@@ -23,8 +27,8 @@ import {
   ListItemContainer,
   ListItemText,
 } from "./helpers/styled";
-import isString from "../../../utils/string/isString";
 import { listPlaces } from "./helpers/listPlaces";
+import { browseRoutes } from "./helpers/browseRoutes";
 
 const Tickets = (props: DefaultProps) => {
   const {
@@ -33,8 +37,6 @@ const Tickets = (props: DefaultProps) => {
   const [globalState, setGlobalState] = useContext(GlobalContext)();
   const [flightFrom, setFlightFrom] = useState("");
   const [flightTo, setFlightTo] = useState("");
-  const [dateBegin, setDateBegin] = useState("06/07/2020");
-  const [dateEnd, setDateEnd] = useState("18/07/2020");
   const [placesFrom, setPlacesFrom] = useState([]);
   const [placesTo, setPlacesTo] = useState([]);
   const [keyboardIsOpen, setKeyboardIsOpen] = useState(Platform.OS === "web");
@@ -57,8 +59,30 @@ const Tickets = (props: DefaultProps) => {
     console.log(globalState);
   }, [globalState]);
 
-  const handleButtonSearch = () => {
-    console.log("Enviar os valores para a API e atualizar a pagina");
+  const _handleButtonSearch = async () => {
+    // console.log(globalState.flightFrom, globalState.flightTo, globalState.dateBegin, globalState.dateEnd);
+    const dateBegin = moment(globalState.dateBegin, "DD/MM/YYYY");
+    const dateEnd = moment(globalState.dateEnd, "DD/MM/YYYY");
+    if (
+      dateBegin.isValid() &&
+      dateEnd.isValid() &&
+      "PlaceId" in globalState.flightFrom &&
+      "PlaceId" in globalState.flightTo
+    ) {
+      const c = getCountry(locale);
+      const x = await browseRoutes({
+        locale,
+        currency: c.currency || "",
+        country: c.iso2,
+        originplace: globalState.flightFrom.PlaceId,
+        destinationplace: globalState.flightTo.PlaceId,
+        outboundpartialdate: getZuluTime(dateBegin.toDate(), true),
+        inboundpartialdate: getZuluTime(dateEnd.toDate(), true),
+      });
+      console.log(x);
+      return;
+    }
+    alert("Oops...", "As datas informadas não são válidas.");
   };
 
   const _renderPlacesBox = (
@@ -218,7 +242,10 @@ const Tickets = (props: DefaultProps) => {
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             leftIcon={<Icon name="calendar" size={24} color="white" />}
             placeholder={t("Tickets-StartDate-Placeholder")}
-            onChangeText={val => setDateBegin(val)}
+            value={globalState.dateBegin}
+            onChangeText={val =>
+              setGlobalState({ ...globalState, dateBegin: val })
+            }
           />
           <Text>{t("Tickets-EndDate")}</Text>
           <Input
@@ -227,18 +254,17 @@ const Tickets = (props: DefaultProps) => {
             inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
             leftIcon={<Icon name="calendar" size={24} color="white" />}
             placeholder={t("Tickets-EndDate-Placeholder")}
-            onChangeText={val => setDateEnd(val)}
+            value={globalState.dateEnd}
+            onChangeText={val =>
+              setGlobalState({ ...globalState, dateEnd: val })
+            }
           />
 
           <View>
-            <Button onPress={() => handleButtonSearch()}>
+            <Button onPress={_handleButtonSearch}>
               <ButtonText>{t("Tickets-Search")}</ButtonText>
             </Button>
           </View>
-          <Text>
-            TESTE - Origem: {flightFrom} e Destino: {flightTo}. Horário ida:{" "}
-            {dateBegin} e Horário volta: {dateEnd}
-          </Text>
         </ContainerPrimary>
       </ContainerPurple>
     </ScrollContainer>
