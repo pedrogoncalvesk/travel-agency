@@ -351,7 +351,7 @@ const Tickets = (props: DefaultProps) => {
 
           {_renderInputDate()}
           <CheckBox
-            title="Qualquer data"
+            title={t("Tickets-AnyDate")}
             onPress={_handleCheckBox}
             checked={isAnyDate}
           />
