@@ -18,6 +18,18 @@ export interface Place {
   CountryName: string;
 }
 
+export interface MoreInformationBody {
+  information: string;
+}
+
+export interface MoreInformationResponse {
+  name: string;
+  capital: string;
+  language: string;
+  currency: string;
+  phoneCode: string;
+}
+
 export interface BrowseQuotesBody {
   locale: string;
   currency: string;

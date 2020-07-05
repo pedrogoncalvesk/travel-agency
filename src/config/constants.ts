@@ -26,6 +26,7 @@ export default {
   // urls to api requests
   API: {
     PLACES: "listPlaces",
+    INFORMATION: "moreInformation",
     QUOTES: "browseQuotes",
   },
 };

@@ -6,7 +6,7 @@ import alert from "../../../../utils/alert";
 
 export const browseQuotes = async (
   data: BrowseQuotesBody,
-  showMessage: boolean = false,
+  showMessage: boolean = true,
 ): Promise<boolean | BrowseQuotesResponse> => {
   try {
     return api.post(constants.API.QUOTES, data);

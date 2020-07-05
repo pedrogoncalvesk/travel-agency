@@ -317,7 +317,7 @@ const Tickets = (props: DefaultProps) => {
               }
             />
             {isString(flightFrom) &&
-            _renderPlacesBox(_renderItemFrom, placesFrom)}
+              _renderPlacesBox(_renderItemFrom, placesFrom)}
           </Container>
           <Container style={{ zIndex: 1 }}>
             <Text>{t("Tickets-To")}</Text>
