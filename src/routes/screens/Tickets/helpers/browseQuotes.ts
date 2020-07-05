@@ -1,15 +1,15 @@
 // eslint-disable-next-line no-unused-vars
-import { Places } from "../../../helpers/types";
+import { BrowseQuotesBody, BrowseQuotesResponse } from "../../../helpers/types";
 import api from "../../../../utils/request/api";
 import constants from "../../../../config/constants";
 import alert from "../../../../utils/alert";
 
-export const browseRoutes = async (
-  data: BrowseRoutesBody,
+export const browseQuotes = async (
+  data: BrowseQuotesBody,
   showMessage: boolean = false,
-): Promise<boolean | Places> => {
+): Promise<boolean | BrowseQuotesResponse> => {
   try {
-    return api.post(constants.API.ROUTES, data);
+    return api.post(constants.API.QUOTES, data);
   } catch (e) {
     // continue
     // eslint-disable-next-line no-console
@@ -24,13 +24,3 @@ export const browseRoutes = async (
   }
   return false;
 };
-
-export interface BrowseRoutesBody {
-  locale: string;
-  currency: string;
-  country: string;
-  originplace: string;
-  destinationplace: string;
-  inboundpartialdate: string;
-  outboundpartialdate: string;
-}

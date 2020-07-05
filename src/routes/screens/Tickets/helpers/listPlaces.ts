@@ -1,5 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-import { Places } from "../../../helpers/types";
+// eslint-disable-next-line no-unused-vars,import/named
+import { ListPlacesBody, ListPlacesResponse } from "../../../helpers/types";
 import api from "../../../../utils/request/api";
 import constants from "../../../../config/constants";
 import alert from "../../../../utils/alert";
@@ -7,7 +7,7 @@ import alert from "../../../../utils/alert";
 export const listPlaces = async (
   data: ListPlacesBody,
   showMessage: boolean = false,
-): Promise<boolean | Places> => {
+): Promise<boolean | ListPlacesResponse> => {
   try {
     return api.post(constants.API.PLACES, data);
   } catch (e) {
@@ -24,10 +24,3 @@ export const listPlaces = async (
   }
   return false;
 };
-
-export interface ListPlacesBody {
-  locale: string;
-  currency: string;
-  country: string;
-  queryParameter: string;
-}

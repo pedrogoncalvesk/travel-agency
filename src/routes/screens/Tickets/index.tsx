@@ -28,7 +28,7 @@ import {
   ListItemText,
 } from "./helpers/styled";
 import { listPlaces } from "./helpers/listPlaces";
-import { browseRoutes } from "./helpers/browseRoutes";
+import { browseQuotes } from "./helpers/browseQuotes";
 
 const Tickets = (props: DefaultProps) => {
   const {
@@ -71,7 +71,7 @@ const Tickets = (props: DefaultProps) => {
       "PlaceId" in globalState.flightFrom &&
       "PlaceId" in globalState.flightTo
     ) {
-      const r = await browseRoutes({
+      const r = await browseQuotes({
         locale,
         currency: c.currency || "",
         country: c.iso2,
