@@ -15,7 +15,7 @@ export default function Tickets() {
   const [cardNumber, setCardNumber] = useState("1234 5678 9876 5432");
   const [cvv, setCvv] = useState("123");
   const [expireDate, setExpireDate] = useState("01/20");
-  const [isCartEmpty, setIsCartEmpty] = useState(false);
+  const [isCartEmpty, setIsCartEmpty] = useState(true);
 
   useEffect(() => {
     console.log(globalState);
