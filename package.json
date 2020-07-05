@@ -7,6 +7,9 @@
     "npm": "^6.x.x"
   },
   "scripts": {
+    "heroku-prebuild": "yarn global add expo-cli",
+    "build": "expo build:web",
+    "heroku-postbuild": "cd web-build",
     "start": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
