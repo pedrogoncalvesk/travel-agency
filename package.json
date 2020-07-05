@@ -8,7 +8,7 @@
     "yarn": "^1.22.X"
   },
   "scripts": {
-    "heroku-postbuild": "expo build:web && rm -rf package.json src && cp -R web-build/* .",
+    "heroku-postbuild": "expo build:web",
     "start": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
