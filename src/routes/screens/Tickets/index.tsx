@@ -178,37 +178,10 @@ const Tickets = (props: DefaultProps) => {
   };
 
   const _renderInputDate = () => {
-    if (isAnyDate) {
-      return [
-        <Text>{t("Tickets-StartDate")}</Text>,
-        <Input
-          disabled
-          containerStyle={{ paddingHorizontal: 0 }}
-          placeholderTextColor={colors.COLOR_GRAY}
-          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-          leftIcon={<Icon name="calendar" size={24} color="white" />}
-          placeholder={t("Tickets-StartDate-Placeholder")}
-          value={globalState.dateBegin}
-          onChangeText={val =>
-            setGlobalState({ ...globalState, dateBegin: val })
-          }
-        />,
-        <Text>{t("Tickets-EndDate")}</Text>,
-        <Input
-          disabled
-          containerStyle={{ paddingHorizontal: 0 }}
-          placeholderTextColor={colors.COLOR_GRAY}
-          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-          leftIcon={<Icon name="calendar" size={24} color="white" />}
-          placeholder={t("Tickets-EndDate-Placeholder")}
-          value={globalState.dateEnd}
-          onChangeText={val => setGlobalState({ ...globalState, dateEnd: val })}
-        />,
-      ];
-    }
     return [
       <Text>{t("Tickets-StartDate")}</Text>,
       <Input
+        disabled={isAnyDate}
         containerStyle={{ paddingHorizontal: 0 }}
         placeholderTextColor={colors.COLOR_GRAY}
         inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
@@ -219,6 +192,7 @@ const Tickets = (props: DefaultProps) => {
       />,
       <Text>{t("Tickets-EndDate")}</Text>,
       <Input
+        disabled={isAnyDate}
         containerStyle={{ paddingHorizontal: 0 }}
         placeholderTextColor={colors.COLOR_GRAY}
         inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
@@ -312,13 +286,7 @@ const Tickets = (props: DefaultProps) => {
     </ListItemContainer>
   );
 
-  const _handleCheckBox = () => {
-    if (isAnyDate === false) {
-      setIsAnyDate(true);
-    } else {
-      setIsAnyDate(false);
-    }
-  };
+  const _handleCheckBox = () => setIsAnyDate(!isAnyDate);
 
   return (
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
@@ -367,13 +335,11 @@ const Tickets = (props: DefaultProps) => {
           </Container>
 
           {_renderInputDate()}
-
           <CheckBox
             title="Qualquer data"
-            onPress={() => _handleCheckBox()}
+            onPress={_handleCheckBox}
             checked={isAnyDate}
           />
-
           <View>
             <Button onPress={_handleButtonSearch}>
               <ButtonText>{t("Tickets-Search")}</ButtonText>
