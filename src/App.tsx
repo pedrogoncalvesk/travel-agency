@@ -69,6 +69,7 @@ export default function App(props: AppProps): JSX.Element {
     await Promise.all([
       ...cacheImages,
       Font.loadAsync({
+        ...Icon.FontAwesome.font,
         ...Icon.Ionicons.font,
         ...Icon.MaterialCommunityIcons.font,
       }),
