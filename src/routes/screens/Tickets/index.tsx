@@ -27,6 +27,8 @@ import {
   List,
   ListItemContainer,
   ListItemText,
+  ContainerCards,
+  ContainerCard,
 } from "./helpers/styled";
 import { listPlaces } from "./helpers/listPlaces";
 import { browseQuotes } from "./helpers/browseQuotes";
@@ -179,8 +181,9 @@ const Tickets = (props: DefaultProps) => {
 
   const _renderInputDate = () => {
     return [
-      <Text>{t("Tickets-StartDate")}</Text>,
+      <Text key={1}>{t("Tickets-StartDate")}</Text>,
       <Input
+        key={2}
         disabled={isAnyDate}
         containerStyle={{ paddingHorizontal: 0 }}
         placeholderTextColor={colors.COLOR_GRAY}
@@ -190,8 +193,9 @@ const Tickets = (props: DefaultProps) => {
         value={globalState.dateBegin}
         onChangeText={val => setGlobalState({ ...globalState, dateBegin: val })}
       />,
-      <Text>{t("Tickets-EndDate")}</Text>,
+      <Text key={3}>{t("Tickets-EndDate")}</Text>,
       <Input
+        key={4}
         disabled={isAnyDate}
         containerStyle={{ paddingHorizontal: 0 }}
         placeholderTextColor={colors.COLOR_GRAY}
@@ -288,8 +292,8 @@ const Tickets = (props: DefaultProps) => {
 
   const _handleCheckBox = () => setIsAnyDate(!isAnyDate);
 
-  return (
-    <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
+  const _renderSearch = () => {
+    return (
       <ContainerPurple>
         <ContainerPrimary>
           <Text style={{ marginBottom: 10, fontSize: 20 }}>
@@ -313,7 +317,7 @@ const Tickets = (props: DefaultProps) => {
               }
             />
             {isString(flightFrom) &&
-              _renderPlacesBox(_renderItemFrom, placesFrom)}
+            _renderPlacesBox(_renderItemFrom, placesFrom)}
           </Container>
           <Container style={{ zIndex: 1 }}>
             <Text>{t("Tickets-To")}</Text>
@@ -347,6 +351,23 @@ const Tickets = (props: DefaultProps) => {
           </View>
         </ContainerPrimary>
       </ContainerPurple>
+    );
+  };
+
+  const _renderFlights = () => {
+    return (
+      <ContainerCards>
+        <ContainerCard>
+          <Text>Oi</Text>
+        </ContainerCard>
+      </ContainerCards>
+    );
+  };
+
+  return (
+    <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
+      {_renderSearch()}
+      {_renderFlights()}
     </ScrollContainer>
   );
 };

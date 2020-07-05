@@ -35,7 +35,7 @@ const colors = {
   COLOR_FIELD_STROKE: "rgb(3, 56, 142)",
   COLOR_FIELD_FILL: "rgba(3, 56, 142, 0.2)",
   COLOR_FIELD_SEL_STROKE: "rgb(141, 202, 68)",
-  COLOR_FIELD_SEL_FILL: "rgba(141, 202, 68, 0.7)"
+  COLOR_FIELD_SEL_FILL: "rgba(141, 202, 68, 0.7)",
 };
 
 const deviceHeight = Dimensions.get("window").height;

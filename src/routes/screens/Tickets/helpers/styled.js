@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 
 import { colors } from "../../../../config/theme";
+import { getShadowStyle } from "../../../../styled/ShadowContainer";
 
 export const Container = styled.View`
   position: relative;
@@ -49,4 +50,17 @@ export const ListItemContainer = styled.TouchableOpacity`
 
 export const ListItemText = styled.Text`
   font-size: 14px;
+`;
+
+export const ContainerCards = styled.View`
+  padding-horizontal: 10px;
+  padding-vertical: 10px;
+`;
+
+export const ContainerCard = styled.View.attrs({
+  style: getShadowStyle(2),
+})`
+  width: 150px;
+  height: 250px;
+  background-color: aquamarine;
 `;

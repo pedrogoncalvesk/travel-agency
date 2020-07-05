@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { ScrollViewProps, StyleProp, ViewStyle } from "react-native";
+import { Platform, ScrollViewProps, StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
 
 import { colors, deviceWidth } from "../config/theme";
@@ -12,9 +12,18 @@ interface ScrollProps extends ScrollViewProps {
   contentContainerStyle: object & StyleProp<ViewStyle>;
 }
 
+const maxWidthWeb =
+  Platform.OS !== "web"
+    ? { maxWidth: "auto" }
+    : {
+        maxWidth: "500px",
+        margin: "auto",
+        width: "auto",
+      };
+
 export const ScrollContainer = styled.ScrollView.attrs(
   ({
-    paddingHorizontal = 20,
+    paddingHorizontal = 50,
     alignItems = "center",
     justifyContent = "center",
     contentContainerStyle: s,
@@ -27,7 +36,12 @@ export const ScrollContainer = styled.ScrollView.attrs(
       backgroundColor: colors.COLOR_BACKGROUND,
       paddingHorizontal,
       width: deviceWidth,
+      overflow: "visible",
+      ...maxWidthWeb,
     },
+    style: { ...maxWidthWeb },
     keyboardShouldPersistTaps: "handled",
   }),
-)``;
+)`
+  height: 0;
+`;
