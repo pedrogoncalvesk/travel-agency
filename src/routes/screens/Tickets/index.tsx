@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Keyboard, Platform } from "react-native";
+import { View, Keyboard, Platform, TouchableOpacity } from "react-native";
 import { Input, CheckBox } from "react-native-elements";
 import moment from "moment";
 
@@ -154,6 +154,17 @@ const Tickets = (props: DefaultProps) => {
       return;
     }
     alert("Oops...", "As datas informadas não são válidas.");
+  };
+
+  const _handleClear = () => {
+    setGlobalState({
+      ...globalState,
+      flightFrom: {},
+      flightTo: {},
+      dateBegin: "",
+      dateEnd: "",
+      flights: [],
+    });
   };
 
   const _renderPlacesBox = (
@@ -348,6 +359,14 @@ const Tickets = (props: DefaultProps) => {
             <Button onPress={_handleButtonSearch}>
               <ButtonText>{t("Tickets-Search")}</ButtonText>
             </Button>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={_handleClear}
+              style={{ paddingVertical: 5 }}
+            >
+              <Text>{t("Tickets-Clear")}</Text>
+            </TouchableOpacity>
           </View>
         </ContainerPrimary>
       </ContainerPurple>
