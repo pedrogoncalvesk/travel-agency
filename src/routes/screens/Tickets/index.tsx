@@ -179,10 +179,10 @@ const Tickets = (props: DefaultProps) => {
 
   const _renderInputDate = () => {
     if (isAnyDate) {
-      return([
+      return [
         <Text>{t("Tickets-StartDate")}</Text>,
         <Input
-          disabled={true}
+          disabled
           containerStyle={{ paddingHorizontal: 0 }}
           placeholderTextColor={colors.COLOR_GRAY}
           inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
@@ -195,47 +195,40 @@ const Tickets = (props: DefaultProps) => {
         />,
         <Text>{t("Tickets-EndDate")}</Text>,
         <Input
-          disabled={true}
+          disabled
           containerStyle={{ paddingHorizontal: 0 }}
           placeholderTextColor={colors.COLOR_GRAY}
           inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
           leftIcon={<Icon name="calendar" size={24} color="white" />}
           placeholder={t("Tickets-EndDate-Placeholder")}
           value={globalState.dateEnd}
-          onChangeText={val =>
-            setGlobalState({ ...globalState, dateEnd: val })
-        }
-      />
-      ])
-    } else{
-      return ([
-        <Text>{t("Tickets-StartDate")}</Text>,
-        <Input
-          containerStyle={{ paddingHorizontal: 0 }}
-          placeholderTextColor={colors.COLOR_GRAY}
-          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-          leftIcon={<Icon name="calendar" size={24} color="white" />}
-          placeholder={t("Tickets-StartDate-Placeholder")}
-          value={globalState.dateBegin}
-          onChangeText={val =>
-            setGlobalState({ ...globalState, dateBegin: val })
-          }
+          onChangeText={val => setGlobalState({ ...globalState, dateEnd: val })}
         />,
-        <Text>{t("Tickets-EndDate")}</Text>,
-        <Input
-          containerStyle={{ paddingHorizontal: 0 }}
-          placeholderTextColor={colors.COLOR_GRAY}
-          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
-          leftIcon={<Icon name="calendar" size={24} color="white" />}
-          placeholder={t("Tickets-EndDate-Placeholder")}
-          value={globalState.dateEnd}
-          onChangeText={val =>
-            setGlobalState({ ...globalState, dateEnd: val })
-        }
-      />
-      ])
+      ];
     }
-  }
+    return [
+      <Text>{t("Tickets-StartDate")}</Text>,
+      <Input
+        containerStyle={{ paddingHorizontal: 0 }}
+        placeholderTextColor={colors.COLOR_GRAY}
+        inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
+        leftIcon={<Icon name="calendar" size={24} color="white" />}
+        placeholder={t("Tickets-StartDate-Placeholder")}
+        value={globalState.dateBegin}
+        onChangeText={val => setGlobalState({ ...globalState, dateBegin: val })}
+      />,
+      <Text>{t("Tickets-EndDate")}</Text>,
+      <Input
+        containerStyle={{ paddingHorizontal: 0 }}
+        placeholderTextColor={colors.COLOR_GRAY}
+        inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
+        leftIcon={<Icon name="calendar" size={24} color="white" />}
+        placeholder={t("Tickets-EndDate-Placeholder")}
+        value={globalState.dateEnd}
+        onChangeText={val => setGlobalState({ ...globalState, dateEnd: val })}
+      />,
+    ];
+  };
 
   /**
    * SECTION FLIGHT FROM
@@ -322,10 +315,10 @@ const Tickets = (props: DefaultProps) => {
   const _handleCheckBox = () => {
     if (isAnyDate === false) {
       setIsAnyDate(true);
-    } else{
+    } else {
       setIsAnyDate(false);
     }
-  }
+  };
 
   return (
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
@@ -376,9 +369,9 @@ const Tickets = (props: DefaultProps) => {
           {_renderInputDate()}
 
           <CheckBox
-          title="Qualquer data"
-          onPress={() => _handleCheckBox()}
-          checked={isAnyDate}
+            title="Qualquer data"
+            onPress={() => _handleCheckBox()}
+            checked={isAnyDate}
           />
 
           <View>
