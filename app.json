@@ -26,6 +26,8 @@
       "web",
       "ios",
       "android"
-    ]
+    ],
+    "description": "",
+    "githubUrl": "https://github.com/pedrogoncalvesk/travel-agency"
   }
 }
