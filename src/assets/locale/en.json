@@ -30,5 +30,15 @@
   "Discover-Capital": "Capital",
   "Discover-Name": "Country name",
   "Discover-PhoneCode": "Phone code",
-  "Checkout-Empty": "Your shopping cart is empty"
+  "Checkout-Empty": "Your shopping cart is empty",
+  "Checkout-CardName": "Name in your credit card",
+  "Checkout-CardName-Placeholder": "John Smith",
+  "Checkout-CardNumber": "Card number",
+  "Checkout-CardNumber-Placeholder": "1234 5678 9876 5432",
+  "Checkout-Cvv": "CVV",
+  "Checkout-DateExpire": "Expire date",
+  "Checkout-DateExpire-Placeholder": "123",
+  "Checkout-Buy": "Buy",
+  "Checkout-TicketInfo": "Informations about your ticket",
+  "Checkout-CardInfo": "Informations about your credit card"
 }

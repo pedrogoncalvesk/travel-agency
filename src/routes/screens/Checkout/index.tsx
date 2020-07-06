@@ -29,59 +29,53 @@ const Checkout = (props: DefaultProps) => {
     console.log("Finalizar a compra");
   };
 
+  const _renderCard = () => {
+    return (
+      isCartEmpty ? (
+        <Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>
+         {t("Checkout-Empty")}
+        </Text>
+      ) : [<Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>Informações do seu cartão de crédito</Text>,
+        <Text>{t("Checkout-CardName")}</Text>,
+        <Input
+          style={{ justifyContent: "flex-start" }}
+          placeholder={t("Checkout-CardName-Placeholder")}
+          onChangeText={val => setName(val)}
+        />,
+        <Text>{t("Checkout-CardNumber")}</Text>,
+        <Input
+          placeholder={t("Checkout-CardNumber-Placeholder")}
+          onChangeText={val => setCardNumber(val)}
+        />,
+        <Text>{t("Checkout-Cvv")}</Text>,
+        <Input
+          placeholder={t("Checkout-Cvv-Placeholder")}
+          onChangeText={val => setCvv(val)}
+        />,
+        <Text>{t("Checkout-ExpireDate")}</Text>,
+        <Input
+          placeholder={t("Checkout-ExpireDate-Placeholder")}
+          onChangeText={val => setExpireDate(val)}
+        />,
+
+        <View>
+          <Button onPress={() => handleButtonBuy()}>
+            <ButtonText>{t("Checkout-Buy")}</ButtonText>
+          </Button>
+        </View>]
+    )
+  };
+
   return (
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
         <ContainerPrimary>
-          <Text
-            style={{
-              fontSize: 18,
-              textAllign: "center",
-            }}
-          >
-            Informações sobre sua passagem
-          </Text>
-
-          {isCartEmpty ? (
-            <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
-              O seu carrinho está vazio
-            </Text>
-          ) : (
-            [
-              <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
-                Informações do seu cartão de crédito
-              </Text>,
-              <Text>Nome no cartão</Text>,
-              <Input
-                style={{ justifyContent: "flex-start" }}
-                placeholder="Joao da Silva"
-                onChangeText={val => setName(val)}
-              />,
-              <Text>Número do cartão</Text>,
-              <Input
-                placeholder="1234 5678 9876 5432"
-                onChangeText={val => setCardNumber(val)}
-              />,
-              <Text>CVV</Text>,
-              <Input placeholder="123" onChangeText={val => setCvv(val)} />,
-              <Text>Data de validade</Text>,
-              <Input
-                placeholder="01/20"
-                onChangeText={val => setExpireDate(val)}
-              />,
-
-              <View>
-                <Button onPress={() => handleButtonBuy()}>
-                  <ButtonText>Comprar</ButtonText>
-                </Button>
-              </View>,
-            ]
-          )}
-
-          <Text>
-            TESTE - Origem: {name} e Destino: {cardNumber}. Horário ida: {cvv} e
-            Horário volta: {expireDate}
-          </Text>
+          <Text style={{
+            fontSize: 18,
+            textAllign: "center",
+          }}
+          >{t("Checkout-TicketInfo")}</Text>
+          {_renderCard()}
         </ContainerPrimary>
       </ContainerPurple>
     </ScrollContainer>
