@@ -38,5 +38,6 @@
   "Checkout-Cvv": "CVV",
   "Checkout-DateExpire": "Data de validade",
   "Checkout-DateExpire-Placeholder": "123",
-  "Checkout-Buy": "Comprar"
+  "Checkout-Buy": "Comprar",
+  "Checkout-TicketInfo": "Informações sobre sua passagem"
 }
