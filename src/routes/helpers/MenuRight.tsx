@@ -84,14 +84,10 @@ const MenuRight = (props: MenuRightProps) => {
           color={
             globalState.flights.length ? tintColor : colors.COLOR_GRAY_BLACK
           }
-          onPress={() =>
-            globalState.flights.length
-              ? navigationService.navigate(constants.ROUTES.CHECKOUT)
-              : {}
-          }
+          onPress={() => navigationService.navigate(constants.ROUTES.CHECKOUT)}
           style={{ marginRight: 5 }}
         >
-          {!!globalState.flights.length && (
+          {!!globalState.flights.length && Platform.OS === "web" && (
             <Badge
               value={
                 globalState.flights.length > 9

@@ -30,12 +30,15 @@ const Checkout = (props: DefaultProps) => {
   };
 
   const _renderCard = () => {
-    return (
-      isCartEmpty ? (
-        <Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>
-         {t("Checkout-Empty")}
-        </Text>
-      ) : [<Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>Informações do seu cartão de crédito</Text>,
+    return isCartEmpty ? (
+      <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
+        {t("Checkout-Empty")}
+      </Text>
+    ) : (
+      [
+        <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
+          Informações do seu cartão de crédito
+        </Text>,
         <Text>{t("Checkout-CardName")}</Text>,
         <Input
           style={{ justifyContent: "flex-start" }}
@@ -62,19 +65,23 @@ const Checkout = (props: DefaultProps) => {
           <Button onPress={() => handleButtonBuy()}>
             <ButtonText>{t("Checkout-Buy")}</ButtonText>
           </Button>
-        </View>]
-    )
+        </View>,
+      ]
+    );
   };
 
   return (
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
         <ContainerPrimary>
-          <Text style={{
-            fontSize: 18,
-            textAllign: "center",
-          }}
-          >{t("Checkout-TicketInfo")}</Text>
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: "center",
+            }}
+          >
+            {t("Checkout-TicketInfo")}
+          </Text>
           {_renderCard()}
         </ContainerPrimary>
       </ContainerPurple>
