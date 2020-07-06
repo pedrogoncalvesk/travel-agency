@@ -13,6 +13,7 @@ import alert from "../../../utils/alert";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
+import { colors } from "../../../config/theme";
 import { WhiteText, Button, ButtonText } from "../Tickets/helpers/styled";
 import TicketCard from "../Tickets/components/TicketCard";
 import { checkout } from "./helpers/checkout";
@@ -104,28 +105,38 @@ const Checkout = (props: DefaultProps) => {
         <Input
           style={{ justifyContent: "flex-start" }}
           placeholder={t("Checkout-CardName-Placeholder")}
+          placeholderTextColor={colors.COLOR_GRAY}
+          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
           onChangeText={val => setName(val)}
         />
         <WhiteText>{t("Checkout-CardLastName")}</WhiteText>
         <Input
           style={{ justifyContent: "flex-start" }}
           placeholder={t("Checkout-CardLastName-Placeholder")}
+          placeholderTextColor={colors.COLOR_GRAY}
+          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
           onChangeText={val => setLastName(val)}
         />
         <WhiteText>{t("Checkout-CardNumber")}</WhiteText>
         <Input
           placeholder={t("Checkout-CardNumber-Placeholder")}
           onChangeText={val => setCardNumber(val)}
+          placeholderTextColor={colors.COLOR_GRAY}
+          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
         />
         <WhiteText>{t("Checkout-Cvv")}</WhiteText>
         <Input
           placeholder={t("Checkout-Cvv-Placeholder")}
           onChangeText={val => setCvv(val)}
+          placeholderTextColor={colors.COLOR_GRAY}
+          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
         />
         <WhiteText>{t("Checkout-ExpireDate")}</WhiteText>
         <Input
           placeholder={t("Checkout-ExpireDate-Placeholder")}
           onChangeText={val => setExpirationDate(val)}
+          placeholderTextColor={colors.COLOR_GRAY}
+          inputStyle={{ color: colors.COLOR_WHITE, paddingHorizontal: 5 }}
         />
         {globalState.flights.map((quote: Quote, index) => (
           <TicketCard
