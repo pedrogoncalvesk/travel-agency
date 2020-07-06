@@ -27,7 +27,7 @@ import { checkStatus } from "./helpers/checkStatus";
 
 const Orders = (props: DefaultProps) => {
   const {
-    screenProps: { t, locale },
+    screenProps: { t },
   } = props;
   const [globalState, setGlobalState] = useContext(GlobalContext)();
   const [isCartEmpty, setIsCartEmpty] = useState(true);

@@ -22,7 +22,7 @@ import constants from "../../../config/constants";
 
 const Checkout = (props: DefaultProps) => {
   const {
-    screenProps: { t, locale },
+    screenProps: { t },
   } = props;
   const [globalState, setGlobalState] = useContext(GlobalContext)();
   const [name, setName] = useState("");
