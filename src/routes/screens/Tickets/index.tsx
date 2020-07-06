@@ -64,9 +64,9 @@ const Tickets = (props: DefaultProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    moment.locale(locale);
-  }, [locale]);
+  // useEffect(() => {
+  //   moment.locale(locale);
+  // }, [locale]);
 
   const _handleButtonSearch = async (): Promise<void> => {
     const c = getCountry(locale);

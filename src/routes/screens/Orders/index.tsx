@@ -36,9 +36,9 @@ const Orders = (props: DefaultProps) => {
     setIsCartEmpty(!Object.keys(globalState.history).length);
   }, [globalState.history]);
 
-  useEffect(() => {
-    moment.locale(locale);
-  }, [locale]);
+  // useEffect(() => {
+  //   moment.locale(locale);
+  // }, [locale]);
 
   const _handleCheckStatus = async (idCheckout: string) => {
     const res = await checkStatus({ idCheckout });

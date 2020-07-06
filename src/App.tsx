@@ -5,6 +5,7 @@ import { AppLoading } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import * as Icon from "@expo/vector-icons";
+import * as _ from "lodash";
 
 // eslint-disable-next-line no-unused-vars
 import { Country, CountryType } from "./utils/Country";
@@ -38,22 +39,25 @@ export default function App(props: AppProps): JSX.Element {
 
   const _getCountries = (): Array<CountryType> => {
     const allCountries = Country.getAll();
-    return Object.keys(i18n.translations).reduce(
-      (acc: Array<CountryType>, l: string) => {
-        const country = allCountries.find((c: CountryType) => {
-          if (
-            Array.isArray(c.locales) &&
-            c.locales.findIndex((lo: string) => lo === l) !== -1
-          )
-            return c;
-          return undefined;
-        });
-        if (isObject(country)) {
-          return [...acc, country];
-        }
-        return acc;
-      },
-      [],
+    return _.uniqBy(
+      Object.keys(i18n.translations).reduce(
+        (acc: Array<CountryType>, l: string) => {
+          const country = allCountries.find((c: CountryType) => {
+            if (
+              Array.isArray(c.locales) &&
+              c.locales.findIndex((lo: string) => lo === l) !== -1
+            )
+              return c;
+            return undefined;
+          });
+          if (isObject(country)) {
+            return [...acc, country];
+          }
+          return acc;
+        },
+        [],
+      ),
+      "iso2",
     );
   };
 

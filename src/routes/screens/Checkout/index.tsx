@@ -36,9 +36,9 @@ const Checkout = (props: DefaultProps) => {
     setIsCartEmpty(!globalState.flights.length);
   }, [globalState.flights]);
 
-  useEffect(() => {
-    moment.locale(locale);
-  }, [locale]);
+  // useEffect(() => {
+  //   moment.locale(locale);
+  // }, [locale]);
 
   const _handleClear = (clearGlobal = true) => {
     if (clearGlobal) {
