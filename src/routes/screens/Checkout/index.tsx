@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Input } from "react-native-elements";
 
+// eslint-disable-next-line no-unused-vars
+import { DefaultProps } from "../../../App";
 import { GlobalContext } from "../../../config/sharedState";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
-import Icon from "../../../styled/Icon";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
-import { Text, Button, ButtonText } from "../Tickets/helpers/styled";
-import { DefaultProps } from "../../../App";
+import { WhiteText, Button, ButtonText } from "../Tickets/helpers/styled";
 
 const Checkout = (props: DefaultProps) => {
   const {
@@ -31,31 +31,32 @@ const Checkout = (props: DefaultProps) => {
 
   const _renderCard = () => {
     return isCartEmpty ? (
-      <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
+      <WhiteText style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
         {t("Checkout-Empty")}
-      </Text>
+      </WhiteText>
     ) : (
       [
-        <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
-          Informações do seu cartão de crédito
-        </Text>,
-        <Text>{t("Checkout-CardName")}</Text>,
+        <WhiteText style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
+          {t("Checkout-CardInfo")}
+        </WhiteText>,
+
+        <WhiteText>{t("Checkout-CardName")}</WhiteText>,
         <Input
           style={{ justifyContent: "flex-start" }}
           placeholder={t("Checkout-CardName-Placeholder")}
           onChangeText={val => setName(val)}
         />,
-        <Text>{t("Checkout-CardNumber")}</Text>,
+        <WhiteText>{t("Checkout-CardNumber")}</WhiteText>,
         <Input
           placeholder={t("Checkout-CardNumber-Placeholder")}
           onChangeText={val => setCardNumber(val)}
         />,
-        <Text>{t("Checkout-Cvv")}</Text>,
+        <WhiteText>{t("Checkout-Cvv")}</WhiteText>,
         <Input
           placeholder={t("Checkout-Cvv-Placeholder")}
           onChangeText={val => setCvv(val)}
         />,
-        <Text>{t("Checkout-ExpireDate")}</Text>,
+        <WhiteText>{t("Checkout-ExpireDate")}</WhiteText>,
         <Input
           placeholder={t("Checkout-ExpireDate-Placeholder")}
           onChangeText={val => setExpireDate(val)}
@@ -74,14 +75,14 @@ const Checkout = (props: DefaultProps) => {
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
         <ContainerPrimary>
-          <Text
+          <WhiteText
             style={{
               fontSize: 18,
               textAlign: "center",
             }}
           >
             {t("Checkout-TicketInfo")}
-          </Text>
+          </WhiteText>
           {_renderCard()}
         </ContainerPrimary>
       </ContainerPurple>
