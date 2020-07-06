@@ -39,5 +39,6 @@
   "Checkout-DateExpire": "Expire date",
   "Checkout-DateExpire-Placeholder": "123",
   "Checkout-Buy": "Buy",
-  "Checkout-TicketInfo": "Informations about your ticket"
+  "Checkout-TicketInfo": "Informations about your ticket",
+  "Checkout-CardInfo": "Informations about your credit card"
 }
