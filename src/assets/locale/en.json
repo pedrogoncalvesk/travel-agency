@@ -22,10 +22,13 @@
   "Tickets-Scale": "Scale",
   "Discover": "Discover",
   "Discover-Title": "Where do you want to know more?",
-  "Discover-Local": "Local",
+  "Discover-Place": "Type a Country name",
   "Discover-Placeholder": "E.g.: Sao Paulo",
   "Discover-Search": "Search",
   "Discover-Currency": "Currency",
   "Discover-Language": "Language",
+  "Discover-Capital": "Capital",
+  "Discover-Name": "Country name",
+  "Discover-PhoneCode": "Phone code",
   "Checkout-Empty": "Your shopping cart is empty"
 }

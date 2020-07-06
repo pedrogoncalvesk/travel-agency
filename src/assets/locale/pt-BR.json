@@ -22,10 +22,13 @@
   "Tickets-Scale": "Escala",
   "Discover": "Descubra",
   "Discover-Title": "Sobre onde deseja conhecer mais?",
-  "Discover-Local": "Local",
+  "Discover-Place": "Digite o nome de um País",
   "Discover-Placeholder": "Ex.: São Paulo",
   "Discover-Search": "Buscar",
   "Discover-Currency": "Moeda",
   "Discover-Language": "Língua",
+  "Discover-Capital": "Capital",
+  "Discover-Name": "Nome do País",
+  "Discover-PhoneCode": "Código de telefone",
   "Checkout-Empty": "O seu carrinho está vazio"
 }
