@@ -35,7 +35,7 @@ const Checkout = (props: DefaultProps) => {
         <Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>
          {t("Checkout-Empty")}
         </Text>
-      ) : [<Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>Informações do seu cartão de crédito</Text>,
+      ) : [<Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>t{"Checkout-CardInfo"}</Text>,
         <Text>{t("Checkout-CardName")}</Text>,
         <Input
           style={{ justifyContent: "flex-start" }}
