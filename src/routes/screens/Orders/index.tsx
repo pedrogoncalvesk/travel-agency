@@ -69,10 +69,13 @@ const Orders = (props: DefaultProps) => {
   const _handleClearOne = (id: string) => {
     let history: History = {};
     // @ts-ignore
-    history = Object.keys(globalState.history).reduce((acc: History, idx: string) => {
-      if (idx !== id) return { ...acc, [idx]: globalState.history[idx] };
-      return acc;
-    }, history);
+    history = Object.keys(globalState.history).reduce(
+      (acc: History, idx: string) => {
+        if (idx !== id) return { ...acc, [idx]: globalState.history[idx] };
+        return acc;
+      },
+      history,
+    );
 
     setGlobalState({
       ...globalState,
