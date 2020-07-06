@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-import { colors } from "../../../../config/theme";
+import { colors, deviceHeight } from "../../../../config/theme";
 import { getShadowStyle } from "../../../../styled/ShadowContainer";
 
 export const Container = styled.View`
@@ -8,7 +8,25 @@ export const Container = styled.View`
 `;
 
 export const Text = styled.Text`
+  color: ${colors.COLOR_BLACK};
+`;
+
+export const StrongText = styled.Text`
+  color: ${colors.COLOR_BLACK};
+  font-weight: bold;
+`;
+
+export const WhiteText = styled.Text`
   color: ${colors.COLOR_WHITE};
+`;
+
+export const GrayText = styled.Text`
+  color: ${colors.COLOR_GRAY_BLACK};
+`;
+
+export const StrongGrayText = styled.Text`
+  font-weight: bold;
+  color: ${colors.COLOR_GRAY_BLACK};
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -21,7 +39,7 @@ export const Button = styled.TouchableOpacity`
   background-color: ${colors.COLOR_RED};
 `;
 
-export const ButtonText = styled(Text)`
+export const ButtonText = styled(WhiteText)`
   font-size: 20px;
   text-align: center;
 `;
@@ -53,14 +71,48 @@ export const ListItemText = styled.Text`
 `;
 
 export const ContainerCards = styled.View`
+  flex-direction: column;
   padding-horizontal: 10px;
   padding-vertical: 10px;
+  background-color: ${colors.COLOR_BACKGROUND};
+  flex-grow: 1;
+  width: 100%;
 `;
 
 export const ContainerCard = styled.View.attrs({
-  style: getShadowStyle(2),
+  ...getShadowStyle(2),
 })`
-  width: 150px;
-  height: 250px;
-  background-color: aquamarine;
+  margin-bottom: 10px;
+  background-color: ${colors.COLOR_WHITE};
+  border-radius: 7.5px;
+  width: 100%;
+  elevation: ${({ elevation }) => elevation};
+  shadow-color: ${({ shadowColor }) => shadowColor};
+  shadow-offset: ${({ shadowOffset: { width, height } }) =>
+    `${width}px ${height}px`};
+  shadow-opacity: ${({ shadowOpacity }) => shadowOpacity};
+  shadow-radius: ${({ shadowRadius }) => shadowRadius}px;
+`;
+
+export const CardSection = styled.View`
+  flex-direction: column;
+  padding: 15px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${colors.COLOR_GRAY};
+`;
+
+export const CardSectionRow = styled.View`
+  flex-direction: row;
+  padding: 15px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${colors.COLOR_GRAY};
+`;
+
+export const InlineDeparture = styled.View`
+  flex-direction: row;
+  margin-bottom: 7.5px;
+`;
+
+export const CardColumn = styled.View`
+  flex-direction: column;
 `;

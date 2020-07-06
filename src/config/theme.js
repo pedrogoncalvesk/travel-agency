@@ -14,7 +14,7 @@ const blackColor = "#000";
 const colors = {
   COLOR_PRIMARY: tintColor,
   COLOR_SECONDARY: "#111",
-  COLOR_BACKGROUND: whiteColor,
+  COLOR_BACKGROUND: "#f9f9f9",
   COLOR_WHITE: whiteColor,
   COLOR_BLACK: blackColor,
   COLOR_TRANSPARENT: "rgba(255, 255, 255, 0)",

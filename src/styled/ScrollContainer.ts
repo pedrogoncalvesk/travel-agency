@@ -17,7 +17,7 @@ const maxWidthWeb =
     ? { maxWidth: "auto" }
     : {
         maxWidth: "500px",
-        margin: "auto",
+        margin: deviceWidth >= 500 ? "auto" : 0,
         width: "auto",
       };
 

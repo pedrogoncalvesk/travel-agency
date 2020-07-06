@@ -8,6 +8,7 @@ const ContainerPurple = styled.View.attrs({
     maxWidth: Platform.OS !== "web" ? "auto" : "inherit",
   },
 })`
+  flex-grow: 1;
   width: ${deviceWidth}px;
   max-width: ${({ style: { maxWidth } }) => maxWidth};
   padding: 10px;

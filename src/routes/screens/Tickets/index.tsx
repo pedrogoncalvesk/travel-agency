@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, Keyboard, Platform, TouchableOpacity } from "react-native";
 import { Input, CheckBox } from "react-native-elements";
 import moment from "moment";
+import * as _ from "lodash";
 
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
 // eslint-disable-next-line no-unused-vars
-import { Carrier, Place } from "../../helpers/types";
+import { Carrier, Place, Quote } from "../../helpers/types";
 import { GlobalContext } from "../../../config/sharedState";
 import { colors } from "../../../config/theme";
 import getZuluTime from "../../../utils/getZuluTime";
 import alert from "../../../utils/alert";
 import isString from "../../../utils/string/isString";
-import isObject from "../../../utils/object/isObject";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
@@ -20,7 +20,10 @@ import { ScrollContainer } from "../../../styled/ScrollContainer";
 import ShadowContainer from "../../../styled/ShadowContainer";
 import {
   Container,
-  Text,
+  WhiteText,
+  GrayText,
+  StrongGrayText,
+  StrongText,
   Button,
   ButtonText,
   ContainerBottomSearchBox,
@@ -29,9 +32,16 @@ import {
   ListItemText,
   ContainerCards,
   ContainerCard,
+  CardSection,
+  CardSectionRow,
+  CardColumn,
+  InlineDeparture,
 } from "./helpers/styled";
 import { listPlaces } from "./helpers/listPlaces";
 import { browseQuotes } from "./helpers/browseQuotes";
+import { formatLeg } from "./helpers/formatLeg";
+import IconMaterial from "../../../styled/IconMaterial";
+import isObject from "../../../utils/object/isObject";
 
 const Tickets = (props: DefaultProps) => {
   const {
@@ -61,8 +71,8 @@ const Tickets = (props: DefaultProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(globalState);
-  }, [globalState]);
+    moment.locale(locale);
+  }, [locale]);
 
   const _handleButtonSearch = async (): Promise<void> => {
     const c = getCountry(locale);
@@ -79,8 +89,15 @@ const Tickets = (props: DefaultProps) => {
         country: c.iso2,
         originplace: globalState.flightFrom.PlaceId,
         destinationplace: globalState.flightTo.PlaceId,
-        outboundpartialdate: getZuluTime(dateBegin.toDate(), true),
-        inboundpartialdate: getZuluTime(dateEnd.toDate(), true),
+        ...(!isAnyDate
+          ? {
+              outboundpartialdate: getZuluTime(dateBegin.toDate(), true),
+              inboundpartialdate: getZuluTime(dateEnd.toDate(), true),
+            }
+          : {
+              outboundpartialdate: "anytime",
+              inboundpartialdate: "anytime",
+            }),
       });
       if (
         typeof r === "boolean" ||
@@ -98,58 +115,38 @@ const Tickets = (props: DefaultProps) => {
         Places,
         Currencies: [Currency],
       } = r;
-      const f = r.Quotes.map(quote => {
-        const Price = quote.MinPrice.toLocaleString(locale, {
-          style: "currency",
-          currency: Currency.Code,
-          minimumFractionDigits: Currency.DecimalDigits,
-        });
-        const { OutboundLeg } = quote;
-        let CarriersInfo = null;
-        let Origin = null;
-        let Destination = null;
+      const f = r.Quotes.map(
+        (quote: Quote): Array<Quote> => {
+          const Price = quote.MinPrice.toLocaleString(locale, {
+            style: "currency",
+            currency: Currency.Code,
+            minimumFractionDigits: Currency.DecimalDigits,
+          });
 
-        if (isObject(OutboundLeg)) {
-          if ("CarrierIds" in OutboundLeg) {
-            CarriersInfo = OutboundLeg.CarrierIds.reduce(
-              (acc: Array<Carrier>, id: number | string) => {
-                const carrier = Carriers.find(
-                  ({ CarrierId }) => `${CarrierId}` === `${id}`,
-                );
-                if (typeof carrier !== "undefined" && isObject(carrier)) {
-                  return [...acc, carrier];
-                }
-                return acc;
-              },
-              [],
-            );
-          }
-          if ("OriginId" in OutboundLeg) {
-            const p = Places.find(
-              ({ PlaceId }) => `${PlaceId}` === `${OutboundLeg.OriginId}`,
-            );
-            if (typeof p !== "undefined") {
-              Origin = { ...p };
-            }
-          }
-          if ("DestinationId" in OutboundLeg) {
-            const p = Places.find(
-              ({ PlaceId }) => `${PlaceId}` === `${OutboundLeg.DestinationId}`,
-            );
-            if (typeof p !== "undefined") {
-              Destination = { ...p };
-            }
-          }
-        }
-        return {
-          ...quote,
-          Currency,
-          Price,
-          OutboundLeg: { ...OutboundLeg, CarriersInfo, Origin, Destination },
-        };
-      });
+          const OutboundLeg = formatLeg(quote.OutboundLeg, Carriers, Places);
+          const InboundLeg = formatLeg(quote.InboundLeg, Carriers, Places);
+          const CarriersInfo = _.unionBy(
+            isObject(OutboundLeg) && "CarriersInfo" in OutboundLeg
+              ? OutboundLeg.CarriersInfo
+              : [],
+            isObject(InboundLeg) && "CarriersInfo" in InboundLeg
+              ? InboundLeg.CarriersInfo
+              : [],
+            "CarrierId",
+          );
 
-      console.log("the flights", f);
+          return {
+            ...quote,
+            // @ts-ignore
+            CarriersInfo,
+            Currency,
+            Price,
+            OutboundLeg,
+            InboundLeg,
+          };
+        },
+      );
+
       // @ts-ignore
       setFlights(f);
     } else
@@ -166,8 +163,10 @@ const Tickets = (props: DefaultProps) => {
       flightTo: {},
       dateBegin: "",
       dateEnd: "",
-      flights: [],
     });
+    setFlightFrom("");
+    setFlightTo("");
+    setFlights([]);
   };
 
   const _renderPlacesBox = (
@@ -195,7 +194,7 @@ const Tickets = (props: DefaultProps) => {
 
   const _renderInputDate = () => {
     return [
-      <Text key={1}>{t("Tickets-StartDate")}</Text>,
+      <WhiteText key={1}>{t("Tickets-StartDate")}</WhiteText>,
       <Input
         key={2}
         disabled={isAnyDate}
@@ -207,7 +206,7 @@ const Tickets = (props: DefaultProps) => {
         value={globalState.dateBegin}
         onChangeText={val => setGlobalState({ ...globalState, dateBegin: val })}
       />,
-      <Text key={3}>{t("Tickets-EndDate")}</Text>,
+      <WhiteText key={3}>{t("Tickets-EndDate")}</WhiteText>,
       <Input
         key={4}
         disabled={isAnyDate}
@@ -310,12 +309,12 @@ const Tickets = (props: DefaultProps) => {
     return (
       <ContainerPurple>
         <ContainerPrimary>
-          <Text style={{ marginBottom: 10, fontSize: 20 }}>
+          <WhiteText style={{ marginBottom: 10, fontSize: 20 }}>
             {t("Tickets-Title")}
-          </Text>
+          </WhiteText>
 
           <Container style={{ zIndex: 2 }}>
-            <Text>{t("Tickets-From")}</Text>
+            <WhiteText>{t("Tickets-From")}</WhiteText>
             <Input
               containerStyle={{ paddingHorizontal: 0 }}
               placeholderTextColor={colors.COLOR_GRAY}
@@ -334,7 +333,7 @@ const Tickets = (props: DefaultProps) => {
               _renderPlacesBox(_renderItemFrom, placesFrom)}
           </Container>
           <Container style={{ zIndex: 1 }}>
-            <Text>{t("Tickets-To")}</Text>
+            <WhiteText>{t("Tickets-To")}</WhiteText>
             <Input
               containerStyle={{ paddingHorizontal: 0 }}
               placeholderTextColor={colors.COLOR_GRAY}
@@ -368,7 +367,7 @@ const Tickets = (props: DefaultProps) => {
               onPress={_handleClear}
               style={{ paddingVertical: 5 }}
             >
-              <Text>{t("Tickets-Clear")}</Text>
+              <WhiteText>{t("Tickets-Clear")}</WhiteText>
             </TouchableOpacity>
           </View>
         </ContainerPrimary>
@@ -377,11 +376,100 @@ const Tickets = (props: DefaultProps) => {
   };
 
   const _renderFlights = () => {
+    if (!flights.length) return null;
+
     return (
       <ContainerCards>
-        <ContainerCard>
-          <Text>Oi</Text>
-        </ContainerCard>
+        {flights.map((q: Quote) => (
+          <ContainerCard key={q.QuoteId}>
+            <CardSection>
+              <StrongText>{t("Tickets-Carriers")}</StrongText>
+              <GrayText>
+                {Array.isArray(q.CarriersInfo) &&
+                  q.CarriersInfo.map((c: Carrier) => c.Name).join(",")}
+              </GrayText>
+            </CardSection>
+            <CardSectionRow>
+              {isObject(q.OutboundLeg) && (
+                <CardColumn style={{ marginRight: 40 }}>
+                  <InlineDeparture>
+                    <IconMaterial
+                      name="airplane-takeoff"
+                      size={15}
+                      color={colors.COLOR_GRAY_BLACK}
+                      style={{ marginRight: 7.5 }}
+                    />
+                    <StrongGrayText style={{ marginRight: 5 }}>
+                      {t("Tickets-Outbound")}
+                    </StrongGrayText>
+                    {/* @ts-ignore */}
+                    <GrayText>{`${q.OutboundLeg.Origin.IataCode}-${q.OutboundLeg.Destination.IataCode}`}</GrayText>
+                  </InlineDeparture>
+                  <StrongText style={{ fontSize: 16 }}>
+                    {`${moment(q.OutboundLeg.DepartureDate).format(
+                      "dd D MMM YYYY",
+                    )}`}
+                  </StrongText>
+                  <GrayText>{`${moment(q.OutboundLeg.DepartureDate).format(
+                    "HH:mm",
+                  )} - ${
+                    q.Direct ? t("Tickets-Direct") : t("Tickets-Scale")
+                  }`}</GrayText>
+                </CardColumn>
+              )}
+              {isObject(q.InboundLeg) && (
+                <CardColumn>
+                  <InlineDeparture>
+                    <IconMaterial
+                      name="airplane-landing"
+                      size={15}
+                      color={colors.COLOR_GRAY_BLACK}
+                      style={{ marginRight: 7.5 }}
+                    />
+                    <StrongGrayText style={{ marginRight: 5 }}>
+                      {t("Tickets-Inbound")}
+                    </StrongGrayText>
+                    {/* @ts-ignore */}
+                    <GrayText>{`${q.InboundLeg.Origin.IataCode}-${q.InboundLeg.Destination.IataCode}`}</GrayText>
+                  </InlineDeparture>
+                  <StrongText style={{ fontSize: 16 }}>
+                    {`${moment(q.InboundLeg.DepartureDate).format(
+                      "dd D MMM YYYY",
+                    )}`}
+                  </StrongText>
+                  <GrayText>{`${moment(q.InboundLeg.DepartureDate).format(
+                    "HH:mm",
+                  )} - ${
+                    q.Direct ? t("Tickets-Direct") : t("Tickets-Scale")
+                  }`}</GrayText>
+                </CardColumn>
+              )}
+            </CardSectionRow>
+            <CardSectionRow
+              style={{ justifyContent: "space-between", borderBottomWidth: 0 }}
+            >
+              <CardColumn>
+                <GrayText>{t("Tickets-MinPrice")}</GrayText>
+                <StrongText style={{ fontSize: 22.5 }}>{q.Price}</StrongText>
+              </CardColumn>
+              <CardColumn>
+                <Button
+                  style={{
+                    backgroundColor: colors.COLOR_PRIMARY,
+                    borderColor: colors.COLOR_PRIMARY,
+                  }}
+                  onPress={_handleButtonSearch}
+                >
+                  <ButtonText
+                    style={{ paddingHorizontal: 22.5, paddingVertical: 2.5 }}
+                  >
+                    {t("Tickets-Buy")}
+                  </ButtonText>
+                </Button>
+              </CardColumn>
+            </CardSectionRow>
+          </ContainerCard>
+        ))}
       </ContainerCards>
     );
   };

@@ -36,8 +36,8 @@ export interface BrowseQuotesBody {
   country: string;
   originplace: string;
   destinationplace: string;
-  inboundpartialdate: string;
-  outboundpartialdate: string;
+  inboundpartialdate?: string;
+  outboundpartialdate?: string;
 }
 
 export interface BrowseQuotesResponse {
@@ -56,6 +56,7 @@ export interface Quote {
   QuoteDateTime: string;
   Price?: string;
   Currency?: Currency;
+  CarriersInfo?: Array<Carrier>;
 }
 
 export interface Leg {
