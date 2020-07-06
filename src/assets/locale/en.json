@@ -31,8 +31,10 @@
   "Discover-Name": "Country name",
   "Discover-PhoneCode": "Phone code",
   "Checkout-Empty": "Your shopping cart is empty",
-  "Checkout-CardName": "Name in your credit card",
-  "Checkout-CardName-Placeholder": "John Smith",
+  "Checkout-CardName": "First name",
+  "Checkout-CardName-Placeholder": "E.g.: John",
+  "Checkout-CardLastName": "Last name",
+  "Checkout-CardLastName-Placeholder": "E.g.: Smith",
   "Checkout-CardNumber": "Card number",
   "Checkout-CardNumber-Placeholder": "1234 5678 9876 5432",
   "Checkout-Cvv": "CVV",
@@ -40,6 +42,7 @@
   "Checkout-DateExpire": "Expire date",
   "Checkout-ExpireDate-Placeholder": "DD/MM",
   "Checkout-Buy": "Buy",
+  "Checkout-Clear": "Clear basket",
   "Checkout-TicketInfo": "Informations about your ticket",
   "Checkout-CardInfo": "Informations about your credit card"
 }

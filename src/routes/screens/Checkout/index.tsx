@@ -1,32 +1,81 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Input } from "react-native-elements";
+import moment from "moment";
 
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
+// eslint-disable-next-line no-unused-vars
+import { Quote } from "../../helpers/types";
 import { GlobalContext } from "../../../config/sharedState";
+import alert from "../../../utils/alert";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
 import { WhiteText, Button, ButtonText } from "../Tickets/helpers/styled";
+import TicketCard from "../Tickets/components/TicketCard";
+import { checkout } from "./helpers/checkout";
 
 const Checkout = (props: DefaultProps) => {
   const {
-    screenProps: { t, locale, getCountry },
+    screenProps: { t, locale },
   } = props;
-  const [globalState] = useContext(GlobalContext)();
-  const [name, setName] = useState("Joao da Silva");
-  const [cardNumber, setCardNumber] = useState("1234 5678 9876 5432");
-  const [cvv, setCvv] = useState("123");
-  const [expireDate, setExpireDate] = useState("01/20");
+  const [globalState, setGlobalState] = useContext(GlobalContext)();
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
   const [isCartEmpty, setIsCartEmpty] = useState(true);
 
   useEffect(() => {
-    console.log(globalState);
-  }, [globalState]);
+    setIsCartEmpty(!globalState.flights.length);
+  }, [globalState.flights]);
 
-  const handleButtonBuy = () => {
-    console.log("Finalizar a compra");
+  useEffect(() => {
+    moment.locale(locale);
+  }, [locale]);
+
+  const _handleButtonBuy = async () => {
+    // TODO: checks
+    const res = await checkout({
+      name,
+      lastName,
+      cardNumber,
+      cvv,
+      expirationDate,
+      quotes: globalState.flights[0],
+      placesQuoteApi: globalState.places[0],
+    });
+    if (
+      typeof res !== "boolean" &&
+      typeof res !== "string" &&
+      "idCheckout" in res
+    ) {
+      const { idCheckout } = res;
+      alert(
+        "Pronto!",
+        `Sua requisição está sendo processada e possui o id: ${idCheckout}`,
+      );
+    } else {
+      alert(
+        "Oops...",
+        "Sua requisição não pôde ser processada... Por favor, tente novamente.",
+      );
+    }
+  };
+
+  const _handleClear = () => {
+    setGlobalState({
+      ...globalState,
+      flights: [],
+      places: [],
+    });
+    setName("");
+    setLastName("");
+    setCardNumber("");
+    setCvv("");
+    setExpirationDate("");
   };
 
   const _renderCard = () => {
@@ -35,39 +84,60 @@ const Checkout = (props: DefaultProps) => {
         {t("Checkout-Empty")}
       </WhiteText>
     ) : (
-      [
+      <>
         <WhiteText style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
           {t("Checkout-CardInfo")}
-        </WhiteText>,
-
-        <WhiteText>{t("Checkout-CardName")}</WhiteText>,
+        </WhiteText>
+        <WhiteText>{t("Checkout-CardName")}</WhiteText>
         <Input
           style={{ justifyContent: "flex-start" }}
           placeholder={t("Checkout-CardName-Placeholder")}
           onChangeText={val => setName(val)}
-        />,
-        <WhiteText>{t("Checkout-CardNumber")}</WhiteText>,
+        />
+        <WhiteText>{t("Checkout-CardLastName")}</WhiteText>
+        <Input
+          style={{ justifyContent: "flex-start" }}
+          placeholder={t("Checkout-CardLastName-Placeholder")}
+          onChangeText={val => setLastName(val)}
+        />
+        <WhiteText>{t("Checkout-CardNumber")}</WhiteText>
         <Input
           placeholder={t("Checkout-CardNumber-Placeholder")}
           onChangeText={val => setCardNumber(val)}
-        />,
-        <WhiteText>{t("Checkout-Cvv")}</WhiteText>,
+        />
+        <WhiteText>{t("Checkout-Cvv")}</WhiteText>
         <Input
           placeholder={t("Checkout-Cvv-Placeholder")}
           onChangeText={val => setCvv(val)}
-        />,
-        <WhiteText>{t("Checkout-ExpireDate")}</WhiteText>,
+        />
+        <WhiteText>{t("Checkout-ExpireDate")}</WhiteText>
         <Input
           placeholder={t("Checkout-ExpireDate-Placeholder")}
-          onChangeText={val => setExpireDate(val)}
-        />,
-
+          onChangeText={val => setExpirationDate(val)}
+        />
+        {globalState.flights.map((quote: Quote, index) => (
+          <TicketCard
+            // eslint-disable-next-line react/no-array-index-key
+            key={`${index}-${quote.QuoteId}`}
+            q={quote}
+            t={t}
+            moment={moment}
+          />
+        ))}
         <View>
-          <Button onPress={() => handleButtonBuy()}>
+          <Button onPress={_handleButtonBuy}>
             <ButtonText>{t("Checkout-Buy")}</ButtonText>
           </Button>
-        </View>,
-      ]
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <TouchableOpacity
+            onPress={_handleClear}
+            style={{ paddingVertical: 5 }}
+          >
+            <WhiteText>{t("Checkout-Clear")}</WhiteText>
+          </TouchableOpacity>
+        </View>
+      </>
     );
   };
 

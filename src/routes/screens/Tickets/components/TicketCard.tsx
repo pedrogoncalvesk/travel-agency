@@ -18,7 +18,7 @@ import {
   StrongText,
 } from "../helpers/styled";
 
-const TicketCard = (props: TicketCardProps) => {
+const TicketCard = (props: TicketCardProps): JSX.Element => {
   const { q, t, handleBuy, moment } = props;
   return (
     <ContainerCard>
@@ -90,21 +90,23 @@ const TicketCard = (props: TicketCardProps) => {
           <GrayText>{t("Tickets-MinPrice")}</GrayText>
           <StrongText style={{ fontSize: 22.5 }}>{q.Price}</StrongText>
         </CardColumn>
-        <CardColumn>
-          <Button
-            style={{
-              backgroundColor: colors.COLOR_PRIMARY,
-              borderColor: colors.COLOR_PRIMARY,
-            }}
-            onPress={() => handleBuy(q)}
-          >
-            <ButtonText
-              style={{ paddingHorizontal: 22.5, paddingVertical: 2.5 }}
+        {typeof handleBuy === "function" && (
+          <CardColumn>
+            <Button
+              style={{
+                backgroundColor: colors.COLOR_PRIMARY,
+                borderColor: colors.COLOR_PRIMARY,
+              }}
+              onPress={() => handleBuy(q)}
             >
-              {t("Tickets-Buy")}
-            </ButtonText>
-          </Button>
-        </CardColumn>
+              <ButtonText
+                style={{ paddingHorizontal: 22.5, paddingVertical: 2.5 }}
+              >
+                {t("Tickets-Buy")}
+              </ButtonText>
+            </Button>
+          </CardColumn>
+        )}
       </CardSectionRow>
     </ContainerCard>
   );
@@ -112,9 +114,13 @@ const TicketCard = (props: TicketCardProps) => {
 
 interface TicketCardProps {
   q: Quote;
-  handleBuy: (quote: Quote) => void;
+  handleBuy?: (quote: Quote) => void;
   t: any;
   moment: any;
 }
+
+TicketCard.defaultProps = {
+  handleBuy: undefined,
+};
 
 export default TicketCard;

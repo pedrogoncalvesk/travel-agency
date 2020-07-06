@@ -28,5 +28,6 @@ export default {
     PLACES: "listPlaces",
     INFORMATION: "moreInformation",
     QUOTES: "browseQuotes",
+    CHECKOUT: "checkout",
   },
 };

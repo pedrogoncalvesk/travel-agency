@@ -31,8 +31,10 @@
   "Discover-Name": "Nome do País",
   "Discover-PhoneCode": "Código de telefone",
   "Checkout-Empty": "O seu carrinho está vazio",
-  "Checkout-CardName": "Nome impresso no cartão",
-  "Checkout-CardName-Placeholder": "Joao da Silva",
+  "Checkout-CardName": "Primeiro nome",
+  "Checkout-CardName-Placeholder": "Ex.: João",
+  "Checkout-CardLastName": "Sobrenome",
+  "Checkout-CardLastName-Placeholder": "Ex.: Da Silva",
   "Checkout-CardNumber": "Número do cartão",
   "Checkout-CardNumber-Placeholder": "1234 5678 9876 5432",
   "Checkout-Cvv": "CVV",
@@ -40,6 +42,7 @@
   "Checkout-ExpireDate": "Data de validade",
   "Checkout-ExpireDate-Placeholder": "DD/MM",
   "Checkout-Buy": "Comprar",
+  "Checkout-Clear": "Limpar carrinho",
   "Checkout-TicketInfo": "Informações sobre sua passagem",
   "Checkout-CardInfo": "Informações do seu cartão de crédito"
 }

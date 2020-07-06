@@ -35,7 +35,7 @@ import { formatLeg } from "./helpers/formatLeg";
 import isObject from "../../../utils/object/isObject";
 import navigationService from "../../../utils/navigationService";
 import constants from "../../../config/constants";
-import TicketCard from "./components/Card";
+import TicketCard from "./components/TicketCard";
 
 const Tickets = (props: DefaultProps) => {
   const {
@@ -137,6 +137,7 @@ const Tickets = (props: DefaultProps) => {
             Price,
             OutboundLeg,
             InboundLeg,
+            Places,
           };
         },
       );
@@ -154,6 +155,7 @@ const Tickets = (props: DefaultProps) => {
     setGlobalState({
       ...globalState,
       flights: [...globalState.flights, quote],
+      places: _.unionBy(globalState.places, quote.Places, "PlaceId"),
     });
     navigationService.navigate(constants.ROUTES.CHECKOUT);
   };

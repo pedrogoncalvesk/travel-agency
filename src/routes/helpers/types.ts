@@ -9,15 +9,6 @@ export interface ListPlacesResponse {
   Places: Array<Place> | null;
 }
 
-export interface Place {
-  PlaceId: string;
-  PlaceName: string;
-  CountryId: string;
-  RegionId: string;
-  CityId: string;
-  CountryName: string;
-}
-
 export interface MoreInformationBody {
   information: string;
 }
@@ -47,6 +38,29 @@ export interface BrowseQuotesResponse {
   Currencies: Array<Currency> | null;
 }
 
+export interface CheckoutBody {
+  name: string;
+  lastName: string;
+  cardNumber: string;
+  cvv: string;
+  expirationDate: string;
+  quotes: Quote | Array<Quote>;
+  placesQuoteApi: PlaceResult | Array<PlaceResult>;
+}
+
+export interface CheckoutResponse {
+  idCheckout: number;
+}
+
+export interface Place {
+  PlaceId: string;
+  PlaceName: string;
+  CountryId: string;
+  RegionId: string;
+  CityId: string;
+  CountryName: string;
+}
+
 export interface Quote {
   QuoteId: number | string;
   MinPrice: number;
@@ -57,6 +71,7 @@ export interface Quote {
   Price?: string;
   Currency?: Currency;
   CarriersInfo?: Array<Carrier>;
+  Places: Array<PlaceResult>;
 }
 
 export interface Leg {

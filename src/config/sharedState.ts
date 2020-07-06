@@ -1,7 +1,7 @@
 import React from "react";
 
 // eslint-disable-next-line no-unused-vars
-import { Place } from "../routes/helpers/types";
+import { Place, PlaceResult, Quote } from "../routes/helpers/types";
 import stateManager from "../utils/StateManager";
 import constants from "./constants";
 
@@ -15,6 +15,7 @@ export const initialState: GlobalStateProps = {
   dateBegin: "",
   dateEnd: "",
   flights: [],
+  places: [],
 };
 
 const useGlobalState = stateManager(initialState, {
@@ -31,7 +32,8 @@ export interface GlobalStateProps {
   locale: string;
   flightFrom: object | Place;
   flightTo: object | Place;
-  flights: Array<any>;
+  flights: Array<Quote>;
+  places: Array<PlaceResult>;
   dateBegin: string;
   dateEnd: string;
 }
