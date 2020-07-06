@@ -11,6 +11,7 @@ import Icon from "../styled/Icon";
 
 import Tickets from "./screens/Tickets";
 import Checkout from "./screens/Checkout";
+import Orders from "./screens/Orders";
 import Discover from "./screens/Discover";
 
 export default createStackNavigator(
@@ -56,9 +57,8 @@ export default createStackNavigator(
         },
       ),
     },
-    [constants.ROUTES.CHECKOUT]: {
-      screen: Checkout,
-    },
+    [constants.ROUTES.CHECKOUT]: Checkout,
+    [constants.ROUTES.ORDERS]: Orders,
   },
   {
     initialRouteName: constants.ROUTES.HOME_STACK,

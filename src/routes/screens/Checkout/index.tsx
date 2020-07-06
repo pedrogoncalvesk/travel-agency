@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Input } from "react-native-elements";
 import moment from "moment";
+import * as _ from "lodash";
 
 // eslint-disable-next-line no-unused-vars
 import { DefaultProps } from "../../../App";
@@ -15,6 +16,8 @@ import { ScrollContainer } from "../../../styled/ScrollContainer";
 import { WhiteText, Button, ButtonText } from "../Tickets/helpers/styled";
 import TicketCard from "../Tickets/components/TicketCard";
 import { checkout } from "./helpers/checkout";
+import navigationService from "../../../utils/navigationService";
+import constants from "../../../config/constants";
 
 const Checkout = (props: DefaultProps) => {
   const {
@@ -36,35 +39,6 @@ const Checkout = (props: DefaultProps) => {
     moment.locale(locale);
   }, [locale]);
 
-  const _handleButtonBuy = async () => {
-    // TODO: checks
-    const res = await checkout({
-      name,
-      lastName,
-      cardNumber,
-      cvv,
-      expirationDate,
-      quotes: globalState.flights[0],
-      placesQuoteApi: globalState.places[0],
-    });
-    if (
-      typeof res !== "boolean" &&
-      typeof res !== "string" &&
-      "idCheckout" in res
-    ) {
-      const { idCheckout } = res;
-      alert(
-        "Pronto!",
-        `Sua requisição está sendo processada e possui o id: ${idCheckout}`,
-      );
-    } else {
-      alert(
-        "Oops...",
-        "Sua requisição não pôde ser processada... Por favor, tente novamente.",
-      );
-    }
-  };
-
   const _handleClear = () => {
     setGlobalState({
       ...globalState,
@@ -76,6 +50,44 @@ const Checkout = (props: DefaultProps) => {
     setCardNumber("");
     setCvv("");
     setExpirationDate("");
+  };
+
+  const _handleButtonBuy = async () => {
+    // TODO: checks
+    const res = await checkout({
+      name,
+      lastName,
+      cardNumber,
+      cvv,
+      expirationDate,
+      quotes: globalState.flights[0],
+      placesQuoteApi: globalState.places[0],
+    });
+    if (typeof res !== "boolean" && "idCheckout" in res) {
+      const { idCheckout } = res;
+      setGlobalState({
+        ...globalState,
+        history: {
+          ...globalState.history,
+          [idCheckout]: {
+            status: "pending",
+            flights: _.cloneDeep(globalState.flights),
+            places: _.cloneDeep(globalState.places),
+          },
+        },
+      });
+      alert(
+        "Pronto!",
+        `Sua requisição está sendo processada e possui o id: ${idCheckout}`,
+      );
+      _handleClear();
+      navigationService.navigate(constants.ROUTES.ORDERS);
+    } else {
+      alert(
+        "Oops...",
+        "Sua requisição não pôde ser processada... Por favor, tente novamente.",
+      );
+    }
   };
 
   const _renderCard = () => {

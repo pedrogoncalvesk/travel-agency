@@ -1,5 +1,8 @@
 {
   "country": "País",
+  "pending": "Pendente",
+  "processing": "Processando",
+  "done": "Concluído",
   "Tickets": "Passagens",
   "Tickets-Title": "Insira as informações da sua viagem",
   "Tickets-From": "Origem",
@@ -44,5 +47,11 @@
   "Checkout-Buy": "Comprar",
   "Checkout-Clear": "Limpar carrinho",
   "Checkout-TicketInfo": "Informações sobre sua passagem",
-  "Checkout-CardInfo": "Informações do seu cartão de crédito"
+  "Checkout-CardInfo": "Informações do seu cartão de crédito",
+  "Orders-TicketInfo": "Seu histórico de pedidos",
+  "Orders-Title": "Histórico de Pedidos",
+  "Orders-Empty": "O seu histórico de pedidos está vazio",
+  "Orders-GetStatus": "Consultar status",
+  "Orders-ClearOne": "Apagar Pedido",
+  "Orders-Clear": "Limpar pedidos"
 }

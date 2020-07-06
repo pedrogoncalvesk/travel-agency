@@ -49,7 +49,13 @@ export interface CheckoutBody {
 }
 
 export interface CheckoutResponse {
-  idCheckout: number;
+  idCheckout: string;
+}
+
+export interface CheckStatusBody extends CheckoutResponse {}
+
+export interface CheckStatusResponse {
+  status: string;
 }
 
 export interface Place {
@@ -109,4 +115,12 @@ export interface Currency {
   SpaceBetweenAmountAndSymbol: boolean;
   RoundingCoefficient: number;
   DecimalDigits: number;
+}
+
+export interface History {
+  [idCheckout: string]: {
+    status: string;
+    flights: Array<Quote>;
+    places: Array<PlaceResult>;
+  };
 }

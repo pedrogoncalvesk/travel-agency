@@ -1,5 +1,8 @@
 {
   "country": "Country",
+  "pending": "Pending",
+  "processing": "Processing",
+  "done": "Done",
   "Tickets": "Tickets",
   "Tickets-Title": "Enter your travel information",
   "Tickets-From": "Home",
@@ -44,5 +47,11 @@
   "Checkout-Buy": "Buy",
   "Checkout-Clear": "Clear basket",
   "Checkout-TicketInfo": "Informations about your ticket",
-  "Checkout-CardInfo": "Informations about your credit card"
+  "Checkout-CardInfo": "Informations about your credit card",
+  "Orders-TicketInfo": "Your historical orders",
+  "Orders-Title": "Order History",
+  "Orders-Empty": "Your order history is empty",
+  "Orders-GetStatus": "Check status",
+  "Orders-ClearOne": "Clear order",
+  "Orders-Clear": "Clear orders"
 }

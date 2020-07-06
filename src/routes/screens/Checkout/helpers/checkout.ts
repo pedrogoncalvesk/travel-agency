@@ -7,7 +7,7 @@ import alert from "../../../../utils/alert";
 export const checkout = async (
   data: CheckoutBody,
   showMessage: boolean = true,
-): Promise<boolean | string | CheckoutResponse> => {
+): Promise<boolean | CheckoutResponse> => {
   try {
     return api.post(constants.API.CHECKOUT, data);
   } catch (e) {

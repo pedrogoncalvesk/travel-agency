@@ -183,6 +183,30 @@ async function _patch(
     .catch(__reject);
 }
 
+export const request = (
+  url,
+  type,
+  path,
+  data,
+  headers = {},
+  timeout = false,
+  callbackProgress,
+) => {
+  switch (type) {
+    case "GET":
+    default:
+      return _get(url, path, data, headers, timeout, callbackProgress);
+    case "POST":
+      return _post(url, path, data, headers, timeout, callbackProgress);
+    case "PUT":
+      return _put(url, path, data, headers, timeout, callbackProgress);
+    case "DELETE":
+      return _remove(url, path, data, headers, timeout, callbackProgress);
+    case "PATCH":
+      return _patch(url, path, data, headers, timeout, callbackProgress);
+  }
+};
+
 export default {
   get: (path, data, headers = {}, timeout = false, callbackProgress) =>
     _get(constants.BASE_URL, path, data, headers, timeout, callbackProgress),

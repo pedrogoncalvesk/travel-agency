@@ -80,6 +80,12 @@ const MenuRight = (props: MenuRightProps) => {
         }}
       >
         <Icon
+          name="person"
+          color={colors.COLOR_GRAY_BLACK}
+          onPress={() => navigationService.navigate(constants.ROUTES.ORDERS)}
+          style={{ marginRight: 15 }}
+        />
+        <Icon
           name="basket"
           color={
             globalState.flights.length ? tintColor : colors.COLOR_GRAY_BLACK

@@ -17,17 +17,20 @@ export default {
     HOME_STACK: "HomeStack",
     TICKETS: "Tickets",
     CHECKOUT: "Checkout",
+    ORDERS: "Orders",
     DISCOVER: "Discover",
   },
   // URLS
   // base url to api requests
   // eslint-disable-next-line no-undef
   BASE_URL: "https://producer-api.herokuapp.com/",
+  BASE_URL_CONSUMER: "https://consumer-api.herokuapp.com/",
   // urls to api requests
   API: {
     PLACES: "listPlaces",
     INFORMATION: "moreInformation",
     QUOTES: "browseQuotes",
     CHECKOUT: "checkout",
+    CHECK_STATUS: "statusTransaction",
   },
 };
