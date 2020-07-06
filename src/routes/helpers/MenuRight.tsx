@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { View, Image, TouchableOpacity, Platform } from "react-native";
+import { Badge } from "react-native-elements";
 
 // eslint-disable-next-line no-unused-vars,import/named
 import { ScreenProps } from "../../App";
@@ -89,7 +90,23 @@ const MenuRight = (props: MenuRightProps) => {
               : {}
           }
           style={{ marginRight: 5 }}
-        />
+        >
+          {!!globalState.flights.length && (
+            <Badge
+              value={
+                globalState.flights.length > 9
+                  ? "9+"
+                  : `${globalState.flights.length}`
+              }
+              status="error"
+              containerStyle={{
+                position: "absolute",
+                marginTop: -5,
+                marginLeft: -8,
+              }}
+            />
+          )}
+        </Icon>
         <TouchableOpacity
           style={{
             justifyContent: "center",
