@@ -36,8 +36,9 @@
   "Checkout-CardNumber": "Card number",
   "Checkout-CardNumber-Placeholder": "1234 5678 9876 5432",
   "Checkout-Cvv": "CVV",
+  "Checkout-Cvv-Placeholder": "CVV",
   "Checkout-DateExpire": "Expire date",
-  "Checkout-DateExpire-Placeholder": "123",
+  "Checkout-ExpireDate-Placeholder": "DD/MM",
   "Checkout-Buy": "Buy",
   "Checkout-TicketInfo": "Informations about your ticket",
   "Checkout-CardInfo": "Informations about your credit card"
