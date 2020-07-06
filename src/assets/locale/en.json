@@ -46,12 +46,13 @@
   "Checkout-ExpireDate-Placeholder": "DD/MM",
   "Checkout-Buy": "Buy",
   "Checkout-Clear": "Clear basket",
-  "Checkout-TicketInfo": "Informations about your ticket",
+  "Checkout-TicketInfo": "Shopping cart",
   "Checkout-CardInfo": "Informations about your credit card",
   "Orders-TicketInfo": "Your historical orders",
-  "Orders-Title": "Order History",
+  "Orders-Title": "#Order:",
+  "Orders-Status": "Status:",
   "Orders-Empty": "Your order history is empty",
   "Orders-GetStatus": "Check status",
   "Orders-ClearOne": "Clear order",
-  "Orders-Clear": "Clear orders"
+  "Orders-Clear": "Clear all orders"
 }

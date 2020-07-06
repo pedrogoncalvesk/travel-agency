@@ -10,8 +10,18 @@ import { GlobalContext } from "../../../config/sharedState";
 import alert from "../../../utils/alert";
 import ContainerPurple from "../../../styled/ContainerPurple";
 import ContainerPrimary from "../../../styled/ContainerPrimary";
+import ContainerSecondary from "../../../styled/ContainerSecondary";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
-import { WhiteText, Button, ButtonText } from "../Tickets/helpers/styled";
+import {
+  WhiteText,
+  Button,
+  ButtonText,
+  InlineDeparture,
+  StrongText,
+  GrayText,
+  StrongGrayText,
+  StrongWhiteText,
+} from "../Tickets/helpers/styled";
 import TicketCard from "../Tickets/components/TicketCard";
 import { checkStatus } from "./helpers/checkStatus";
 
@@ -57,12 +67,13 @@ const Orders = (props: DefaultProps) => {
   };
 
   const _handleClearOne = (id: string) => {
-    const history: History = {};
+    let history: History = {};
     // @ts-ignore
-    Object.keys(globalState.history).reduce((acc: History, idx: string) => {
+    history = Object.keys(globalState.history).reduce((acc: History, idx: string) => {
       if (idx !== id) return { ...acc, [idx]: globalState.history[idx] };
       return acc;
     }, history);
+
     setGlobalState({
       ...globalState,
       history,
@@ -78,51 +89,80 @@ const Orders = (props: DefaultProps) => {
 
   const _renderCard = () => {
     return isCartEmpty ? (
-      <WhiteText style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
+      <GrayText style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
         {t("Orders-Empty")}
-      </WhiteText>
+      </GrayText>
     ) : (
       <>
-        <WhiteText style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
-          {t("Orders-Title")}
-        </WhiteText>
         {/* @ts-ignore */}
-        {Object.keys(globalState.history).map((idCheckout: string) => {
-          return (
-            <View key={idCheckout}>
-              {globalState.history[idCheckout].flights.map(
-                (quote: Quote, index) => (
-                  <TicketCard
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={`${index}-${quote.QuoteId}`}
-                    q={quote}
-                    t={t}
-                    moment={moment}
-                  />
-                ),
-              )}
-              <View>
-                <Button onPress={() => _handleCheckStatus(idCheckout)}>
-                  <ButtonText>{t("Orders-GetStatus")}</ButtonText>
-                </Button>
-              </View>
-              <View style={{ alignItems: "center" }}>
-                <TouchableOpacity
-                  onPress={() => _handleClearOne(idCheckout)}
-                  style={{ paddingVertical: 5 }}
-                >
-                  <WhiteText>{t("Orders-ClearOne")}</WhiteText>
-                </TouchableOpacity>
-              </View>
-            </View>
-          );
-        })}
+        {Object.keys(globalState.history).map(
+          (idCheckout: string, index: number) => {
+            const Container = index % 2 ? ContainerSecondary : ContainerPrimary;
+            return (
+              <Container
+                key={idCheckout}
+                style={{ marginBottom: index % 2 ? 0 : 15 }}
+              >
+                <InlineDeparture>
+                  <WhiteText
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      marginBottom: 5,
+                    }}
+                  >
+                    {`${t("Orders-Title")} ${idCheckout}`}
+                  </WhiteText>
+                </InlineDeparture>
+                <InlineDeparture>
+                  <StrongWhiteText
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {`${t("Orders-Status")} ${t(
+                      globalState.history[idCheckout].status,
+                    )}`}
+                  </StrongWhiteText>
+                </InlineDeparture>
+                {globalState.history[idCheckout].flights.map(
+                  (quote: Quote, i) => (
+                    <TicketCard
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={`${i}-${quote.QuoteId}`}
+                      q={quote}
+                      t={t}
+                      moment={moment}
+                    />
+                  ),
+                )}
+                <View>
+                  <Button onPress={() => _handleCheckStatus(idCheckout)}>
+                    <ButtonText>{t("Orders-GetStatus")}</ButtonText>
+                  </Button>
+                </View>
+                <View style={{ alignItems: "center" }}>
+                  <TouchableOpacity
+                    onPress={() => _handleClearOne(idCheckout)}
+                    style={{ paddingVertical: 5 }}
+                  >
+                    <WhiteText>{t("Orders-ClearOne")}</WhiteText>
+                  </TouchableOpacity>
+                </View>
+              </Container>
+            );
+          },
+        )}
         <View style={{ alignItems: "center" }}>
           <TouchableOpacity
             onPress={_handleClear}
             style={{ paddingVertical: 5 }}
           >
-            <WhiteText>{t("Orders-Clear")}</WhiteText>
+            <StrongGrayText style={{ marginVertical: 15 }}>
+              {t("Orders-Clear")}
+            </StrongGrayText>
           </TouchableOpacity>
         </View>
       </>
@@ -132,17 +172,16 @@ const Orders = (props: DefaultProps) => {
   return (
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
-        <ContainerPrimary>
-          <WhiteText
-            style={{
-              fontSize: 18,
-              textAlign: "center",
-            }}
-          >
-            {t("Orders-TicketInfo")}
-          </WhiteText>
-          {_renderCard()}
-        </ContainerPrimary>
+        <StrongText
+          style={{
+            fontSize: 18,
+            textAlign: "center",
+            marginBottom: 15,
+          }}
+        >
+          {t("Orders-TicketInfo")}
+        </StrongText>
+        {_renderCard()}
       </ContainerPurple>
     </ScrollContainer>
   );

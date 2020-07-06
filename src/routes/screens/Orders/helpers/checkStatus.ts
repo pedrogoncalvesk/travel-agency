@@ -12,7 +12,7 @@ export const checkStatus = async (
   try {
     return request(
       constants.BASE_URL_CONSUMER,
-      "POST",
+      "GET",
       constants.API.CHECK_STATUS,
       data,
     );

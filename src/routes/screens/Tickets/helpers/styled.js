@@ -20,13 +20,16 @@ export const WhiteText = styled.Text`
   color: ${colors.COLOR_WHITE};
 `;
 
+export const StrongWhiteText = styled(WhiteText)`
+  font-weight: bold;
+`;
+
 export const GrayText = styled.Text`
   color: ${colors.COLOR_GRAY_BLACK};
 `;
 
-export const StrongGrayText = styled.Text`
+export const StrongGrayText = styled(GrayText)`
   font-weight: bold;
-  color: ${colors.COLOR_GRAY_BLACK};
 `;
 
 export const Button = styled.TouchableOpacity`

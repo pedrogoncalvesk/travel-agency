@@ -40,12 +40,14 @@ const Checkout = (props: DefaultProps) => {
     moment.locale(locale);
   }, [locale]);
 
-  const _handleClear = () => {
-    setGlobalState({
-      ...globalState,
-      flights: [],
-      places: [],
-    });
+  const _handleClear = (clearGlobal = true) => {
+    if (clearGlobal) {
+      setGlobalState({
+        ...globalState,
+        flights: [],
+        places: [],
+      });
+    }
     setName("");
     setLastName("");
     setCardNumber("");
@@ -66,6 +68,10 @@ const Checkout = (props: DefaultProps) => {
     });
     if (typeof res !== "boolean" && "idCheckout" in res) {
       const { idCheckout } = res;
+      alert(
+        "Pronto!",
+        `Sua requisição está sendo processada e possui o id: ${idCheckout}`,
+      );
       setGlobalState({
         ...globalState,
         history: {
@@ -76,13 +82,14 @@ const Checkout = (props: DefaultProps) => {
             places: _.cloneDeep(globalState.places),
           },
         },
+        flights: [],
+        places: [],
       });
-      alert(
-        "Pronto!",
-        `Sua requisição está sendo processada e possui o id: ${idCheckout}`,
+      _handleClear(false);
+      setTimeout(
+        () => navigationService.navigate(constants.ROUTES.ORDERS),
+        2000,
       );
-      _handleClear();
-      navigationService.navigate(constants.ROUTES.ORDERS);
     } else {
       alert(
         "Oops...",
@@ -154,7 +161,7 @@ const Checkout = (props: DefaultProps) => {
         </View>
         <View style={{ alignItems: "center" }}>
           <TouchableOpacity
-            onPress={_handleClear}
+            onPress={() => _handleClear(true)}
             style={{ paddingVertical: 5 }}
           >
             <WhiteText>{t("Checkout-Clear")}</WhiteText>

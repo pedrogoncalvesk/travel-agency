@@ -23,8 +23,8 @@ export default {
   // URLS
   // base url to api requests
   // eslint-disable-next-line no-undef
-  BASE_URL: "https://producer-api.herokuapp.com/",
-  BASE_URL_CONSUMER: "https://consumer-api.herokuapp.com/",
+  BASE_URL: "https://producer-api-cloud.herokuapp.com/",
+  BASE_URL_CONSUMER: "https://consumer-api-cloud.herokuapp.com/",
   // urls to api requests
   API: {
     PLACES: "listPlaces",

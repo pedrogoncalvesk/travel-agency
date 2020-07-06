@@ -46,12 +46,13 @@
   "Checkout-ExpireDate-Placeholder": "DD/MM",
   "Checkout-Buy": "Comprar",
   "Checkout-Clear": "Limpar carrinho",
-  "Checkout-TicketInfo": "Informações sobre sua passagem",
+  "Checkout-TicketInfo": "Carrinho de compras",
   "Checkout-CardInfo": "Informações do seu cartão de crédito",
   "Orders-TicketInfo": "Seu histórico de pedidos",
-  "Orders-Title": "Histórico de Pedidos",
+  "Orders-Title": "#Pedido:",
+  "Orders-Status": "Status:",
   "Orders-Empty": "O seu histórico de pedidos está vazio",
   "Orders-GetStatus": "Consultar status",
   "Orders-ClearOne": "Apagar Pedido",
-  "Orders-Clear": "Limpar pedidos"
+  "Orders-Clear": "Limpar todos os pedidos"
 }
