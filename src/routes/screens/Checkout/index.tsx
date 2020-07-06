@@ -8,8 +8,12 @@ import ContainerPrimary from "../../../styled/ContainerPrimary";
 import Icon from "../../../styled/Icon";
 import { ScrollContainer } from "../../../styled/ScrollContainer";
 import { Text, Button, ButtonText } from "../Tickets/helpers/styled";
+import { DefaultProps } from "../../../App";
 
-export default function Tickets() {
+const Checkout = (props: DefaultProps) => {
+  const {
+    screenProps: { t, locale, getCountry },
+  } = props;
   const [globalState] = useContext(GlobalContext)();
   const [name, setName] = useState("Joao da Silva");
   const [cardNumber, setCardNumber] = useState("1234 5678 9876 5432");
@@ -29,52 +33,59 @@ export default function Tickets() {
     <ScrollContainer paddingHorizontal={0} justifyContent="flex-start">
       <ContainerPurple>
         <ContainerPrimary>
-          <Text style={{
-            fontSize: 18,
-            textAllign: "center",
-          }}
-          >Informações sobre sua passagem</Text>
+          <Text
+            style={{
+              fontSize: 18,
+              textAllign: "center",
+            }}
+          >
+            Informações sobre sua passagem
+          </Text>
 
           {isCartEmpty ? (
-            <Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>
+            <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
               O seu carrinho está vazio
             </Text>
-          ) : [<Text style={{ fontSize: 25, textAlign: "center", margin:20 }}>Informações do seu cartão de crédito</Text>,
-            <Text>Nome no cartão</Text>,
-            <Input
-              style={{ justifyContent: "flex-start" }}
-              placeholder="Joao da Silva"
-              onChangeText={val => setName(val)}
-            />,
-            <Text>Número do cartão</Text>,
-            <Input
-              placeholder="1234 5678 9876 5432"
-              onChangeText={val => setCardNumber(val)}
-            />,
-            <Text>CVV</Text>,
-            <Input
-              placeholder="123"
-              onChangeText={val => setCvv(val)}
-            />,
-            <Text>Data de validade</Text>,
-            <Input
-              placeholder="01/20"
-              onChangeText={val => setExpireDate(val)}
-            />,
-  
-            <View>
-              <Button onPress={() => handleButtonBuy()}>
-                <ButtonText>Comprar</ButtonText>
-              </Button>
-            </View>]}
+          ) : (
+            [
+              <Text style={{ fontSize: 25, textAlign: "center", margin: 20 }}>
+                Informações do seu cartão de crédito
+              </Text>,
+              <Text>Nome no cartão</Text>,
+              <Input
+                style={{ justifyContent: "flex-start" }}
+                placeholder="Joao da Silva"
+                onChangeText={val => setName(val)}
+              />,
+              <Text>Número do cartão</Text>,
+              <Input
+                placeholder="1234 5678 9876 5432"
+                onChangeText={val => setCardNumber(val)}
+              />,
+              <Text>CVV</Text>,
+              <Input placeholder="123" onChangeText={val => setCvv(val)} />,
+              <Text>Data de validade</Text>,
+              <Input
+                placeholder="01/20"
+                onChangeText={val => setExpireDate(val)}
+              />,
 
+              <View>
+                <Button onPress={() => handleButtonBuy()}>
+                  <ButtonText>Comprar</ButtonText>
+                </Button>
+              </View>,
+            ]
+          )}
 
           <Text>
-            TESTE - Origem: {name} e Destino: {cardNumber}. Horário ida:{" "}
-            {cvv} e Horário volta: {expireDate}
+            TESTE - Origem: {name} e Destino: {cardNumber}. Horário ida: {cvv} e
+            Horário volta: {expireDate}
           </Text>
         </ContainerPrimary>
       </ContainerPurple>
     </ScrollContainer>
   );
-}
+};
+
+export default Checkout;

@@ -42,6 +42,8 @@ import { browseQuotes } from "./helpers/browseQuotes";
 import { formatLeg } from "./helpers/formatLeg";
 import IconMaterial from "../../../styled/IconMaterial";
 import isObject from "../../../utils/object/isObject";
+import navigationService from "../../../utils/navigationService";
+import constants from "../../../config/constants";
 
 const Tickets = (props: DefaultProps) => {
   const {
@@ -154,6 +156,14 @@ const Tickets = (props: DefaultProps) => {
         "Oops...",
         "Parece que está faltando alguma informação ou existe alguma informação no formulário errada. Por favor, tente novamente.",
       );
+  };
+
+  const _handleBuy = (quote: Quote): void => {
+    setGlobalState({
+      ...globalState,
+      flights: [...globalState.flights, quote],
+    });
+    navigationService.navigate(constants.ROUTES.CHECKOUT);
   };
 
   const _handleClear = () => {
@@ -407,7 +417,7 @@ const Tickets = (props: DefaultProps) => {
                   </InlineDeparture>
                   <StrongText style={{ fontSize: 16 }}>
                     {`${moment(q.OutboundLeg.DepartureDate).format(
-                      "dd D MMM YYYY",
+                      "ddd D MMM YYYY",
                     )}`}
                   </StrongText>
                   <GrayText>{`${moment(q.OutboundLeg.DepartureDate).format(
@@ -434,7 +444,7 @@ const Tickets = (props: DefaultProps) => {
                   </InlineDeparture>
                   <StrongText style={{ fontSize: 16 }}>
                     {`${moment(q.InboundLeg.DepartureDate).format(
-                      "dd D MMM YYYY",
+                      "ddd D MMM YYYY",
                     )}`}
                   </StrongText>
                   <GrayText>{`${moment(q.InboundLeg.DepartureDate).format(
@@ -458,7 +468,7 @@ const Tickets = (props: DefaultProps) => {
                     backgroundColor: colors.COLOR_PRIMARY,
                     borderColor: colors.COLOR_PRIMARY,
                   }}
-                  onPress={_handleButtonSearch}
+                  onPress={() => _handleBuy(q)}
                 >
                   <ButtonText
                     style={{ paddingHorizontal: 22.5, paddingVertical: 2.5 }}
