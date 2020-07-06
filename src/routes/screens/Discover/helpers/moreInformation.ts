@@ -4,7 +4,7 @@ import api from "../../../../utils/request/api";
 import constants from "../../../../config/constants";
 import alert from "../../../../utils/alert";
 
-export const listPlaces = async (
+export const moreInformation = async (
   data: MoreInformationBody,
   showMessage: boolean = true,
 ): Promise<boolean | MoreInformationResponse> => {
